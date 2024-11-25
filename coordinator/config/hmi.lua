@@ -54,9 +54,9 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
 
     local mon_pane = MultiPane{parent=mon_cfg,x=1,y=4,panes={mon_c_1,mon_c_2,mon_c_3,mon_c_4}}
 
-    TextBox{parent=mon_cfg,x=1,y=2,text=" Monitor Configuration",fg_bg=cpair(colors.black,colors.blue)}
+    TextBox{parent=mon_cfg,x=1,y=2,text=" Configura\xe7\xe3o de Monitores",fg_bg=cpair(colors.black,colors.blue)}
 
-    TextBox{parent=mon_c_1,x=1,y=1,height=5,text="Your configuration requires the following monitors. The main and flow monitors' heights are dependent on your unit count and cooling setup. If you manually entered the unit count, a * will be shown on potentially inaccurate calculations."}
+    TextBox{parent=mon_c_1,x=1,y=1,height=5,text="Sua configura\xe7\xe3o requer os seguintes monitores. As alturas dos monitores principal e de fluxo dependem da contagem de unidades e resfriamento. Se a contagem foi inserida manualmente, um * indicar\xe1 c\xe1lculos potencialmente imprecisos"}
     local mon_reqs = ListBox{parent=mon_c_1,x=1,y=7,height=6,width=49,scroll_height=100,fg_bg=bw_fg_bg,nav_fg_bg=g_lg_fg_bg,nav_active=cpair(colors.black,colors.gray)}
 
     local function next_from_reqs()
@@ -67,25 +67,25 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
         mon_pane.set_value(2)
     end
 
-    PushButton{parent=mon_c_1,x=1,y=14,text="\x1b Back",callback=function()main_pane.set_value(3)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
-    PushButton{parent=mon_c_1,x=8,y=14,text="Legacy Options",min_width=16,callback=function()mon_pane.set_value(4)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
-    PushButton{parent=mon_c_1,x=44,y=14,text="Next \x1a",callback=next_from_reqs,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=mon_c_1,x=1,y=14,text="\x1bVoltar",callback=function()main_pane.set_value(3)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=mon_c_1,x=9,y=14,text="Op\xe7\xd5es Antigas",min_width=16,callback=function()mon_pane.set_value(4)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=mon_c_1,x=44,y=14,text="Prox \x1a",callback=next_from_reqs,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
 
-    TextBox{parent=mon_c_2,x=1,y=1,height=5,text="Please configure your monitors below. You can go back to the prior page without losing progress to double check what you need. All of those monitors must be assigned before you can proceed."}
+    TextBox{parent=mon_c_2,x=1,y=1,height=5,text="Configure seus monitores abaixo. Voc\xea pode voltar \xe0 p\xe1gina anterior sem perder o progresso para conferir o que precisa. Todos os monitores devem ser atribu\xeddos antes de prosseguir."}
 
     local mon_list = ListBox{parent=mon_c_2,x=1,y=6,height=7,width=49,scroll_height=100,fg_bg=bw_fg_bg,nav_fg_bg=g_lg_fg_bg,nav_active=cpair(colors.black,colors.gray)}
 
-    local assign_err = TextBox{parent=mon_c_2,x=8,y=14,width=35,text="",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
+    local assign_err = TextBox{parent=mon_c_2,x=12,y=14,width=30,text="",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
 
     local function submit_monitors()
         if tmp_cfg.MainDisplay == nil then
-            assign_err.set_value("Please assign the main monitor.")
+            assign_err.set_value("Atribua o monitor principal.")
         elseif tmp_cfg.FlowDisplay == nil and not tmp_cfg.DisableFlowView then
-            assign_err.set_value("Please assign the flow monitor.")
+            assign_err.set_value("Atribua o monitor de fluxo.")
         elseif util.table_len(tmp_cfg.UnitDisplays) ~= tmp_cfg.UnitCount then
             for i = 1, tmp_cfg.UnitCount do
                 if tmp_cfg.UnitDisplays[i] == nil then
-                    assign_err.set_value("Please assign the unit " .. i .. " monitor.")
+                    assign_err.set_value("Atribua o monitor unidade " .. i .. ".")
                     break
                 end
             end
@@ -98,8 +98,8 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
         assign_err.show()
     end
 
-    PushButton{parent=mon_c_2,x=1,y=14,text="\x1b Back",callback=function()mon_pane.set_value(1)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
-    PushButton{parent=mon_c_2,x=44,y=14,text="Next \x1a",callback=submit_monitors,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=mon_c_2,x=1,y=14,text="\x1bVoltar",callback=function()mon_pane.set_value(1)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=mon_c_2,x=44,y=14,text="Prox \x1a",callback=submit_monitors,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
 
     local mon_desc = TextBox{parent=mon_c_3,x=1,y=1,height=4,text=""}
 
@@ -111,11 +111,11 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
     local function on_assign_mon(val)
         if val == 2 and tmp_cfg.DisableFlowView then
             self.apply_mon.disable()
-            mon_warn.set_value("You disabled having a flow view monitor. It can't be set unless you go back and enable it.")
+            mon_warn.set_value("Voc\xea desativou o monitor de fluxo. N\xe3o \xe9 poss\xedvel configur\xe1-lo ao menos que volte e o habilite.")
             mon_warn.show()
         elseif not util.table_contains(self.mon_expect, val) then
             self.apply_mon.disable()
-            mon_warn.set_value("That assignment doesn't fit monitor dimensions. You'll need to resize the monitor for it to work.")
+            mon_warn.set_value("A atribui\xe7\xe3o n\xe3o cabe nas dimens\xf5es do monitor. \xc9 necess\xe1rio redimension\xe1-lo para que funcione.")
             mon_warn.show()
         else
             self.apply_mon.enable()
@@ -136,7 +136,7 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
     end
 
     TextBox{parent=mon_c_3,x=1,y=6,width=10,text="Assignment"}
-    local mon_assign = RadioButton{parent=mon_c_3,x=1,y=7,default=1,options={"Main Monitor","Flow Monitor","Unit Monitor"},callback=on_assign_mon,radio_colors=cpair(colors.lightGray,colors.black),select_color=colors.blue}
+    local mon_assign = RadioButton{parent=mon_c_3,x=1,y=7,default=1,options={"Monitor Prin.","Monitor de Fluxo","Monitor de Unidade"},callback=on_assign_mon,radio_colors=cpair(colors.lightGray,colors.black),select_color=colors.blue}
 
     mon_unit_l = TextBox{parent=mon_c_3,x=18,y=6,width=7,text="Unit ID"}
     mon_unit = NumberField{parent=mon_c_3,x=18,y=7,width=10,max_chars=2,min=1,max=4,fg_bg=bw_fg_bg}
@@ -181,8 +181,8 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
         mon_pane.set_value(2)
     end
 
-    PushButton{parent=mon_c_3,x=1,y=14,text="\x1b Back",callback=function()mon_pane.set_value(2)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
-    self.apply_mon = PushButton{parent=mon_c_3,x=43,y=14,min_width=7,text="Apply",callback=apply_monitor,fg_bg=cpair(colors.black,colors.blue),active_fg_bg=btn_act_fg_bg,dis_fg_bg=btn_dis_fg_bg}
+    PushButton{parent=mon_c_3,x=1,y=14,text="\x1bVoltar",callback=function()mon_pane.set_value(2)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    self.apply_mon = PushButton{parent=mon_c_3,x=43,y=14,min_width=7,text="Aplicar",callback=apply_monitor,fg_bg=cpair(colors.black,colors.blue),active_fg_bg=btn_act_fg_bg,dis_fg_bg=btn_dis_fg_bg}
 
     TextBox{parent=mon_c_4,x=1,y=1,height=3,text="For legacy compatibility with facilities built without space for a flow monitor, you can disable the flow monitor requirement here."}
     TextBox{parent=mon_c_4,x=1,y=5,height=3,text="Please be aware that THIS OPTION WILL BE REMOVED ON RELEASE. Disabling it will only be available for the remainder of the beta."}
@@ -195,7 +195,7 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
         mon_pane.set_value(1)
     end
 
-    PushButton{parent=mon_c_4,x=44,y=14,min_width=6,text="Done",callback=back_from_legacy,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=mon_c_4,x=44,y=14,min_width=6,text="Pronto",callback=back_from_legacy,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
 
     --#endregion
 
@@ -223,8 +223,8 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
         else s_vol_err.show() end
     end
 
-    PushButton{parent=spkr_c,x=1,y=14,text="\x1b Back",callback=function()main_pane.set_value(4)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
-    PushButton{parent=spkr_c,x=44,y=14,text="Next \x1a",callback=submit_vol,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=spkr_c,x=1,y=14,text="\x1bVoltar",callback=function()main_pane.set_value(4)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=spkr_c,x=44,y=14,text="Prox \x1a",callback=submit_vol,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
 
     --#endregion
 
@@ -239,10 +239,10 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
     TextBox{parent=crd_c_1,x=1,y=4,text="Clock Time Format"}
     tool_ctl.clock_fmt = RadioButton{parent=crd_c_1,x=1,y=5,default=util.trinary(ini_cfg.Time24Hour,1,2),options={"24-Hour","12-Hour"},callback=function()end,radio_colors=cpair(colors.lightGray,colors.black),select_color=colors.lime}
 
-    TextBox{parent=crd_c_1,x=1,y=8,text="Temperature Scale"}
+    TextBox{parent=crd_c_1,x=1,y=8,text="Escala de Temp."}
     tool_ctl.temp_scale = RadioButton{parent=crd_c_1,x=1,y=9,default=ini_cfg.TempScale,options=types.TEMP_SCALE_NAMES,callback=function()end,radio_colors=cpair(colors.lightGray,colors.black),select_color=colors.lime}
 
-    TextBox{parent=crd_c_1,x=24,y=8,text="Energy Scale"}
+    TextBox{parent=crd_c_1,x=24,y=8,text="Escala de Energia"}
     tool_ctl.energy_scale = RadioButton{parent=crd_c_1,x=24,y=9,default=ini_cfg.EnergyScale,options=types.ENERGY_SCALE_NAMES,callback=function()end,radio_colors=cpair(colors.lightGray,colors.black),select_color=colors.lime}
 
     local function submit_ui_opts()
@@ -252,8 +252,8 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
         main_pane.set_value(7)
     end
 
-    PushButton{parent=crd_c_1,x=1,y=14,text="\x1b Back",callback=function()main_pane.set_value(5)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
-    PushButton{parent=crd_c_1,x=44,y=14,text="Next \x1a",callback=submit_ui_opts,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=crd_c_1,x=1,y=14,text="\x1bVoltar",callback=function()main_pane.set_value(5)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=crd_c_1,x=44,y=14,text="Prox \x1a",callback=submit_ui_opts,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
 
     --#endregion
 

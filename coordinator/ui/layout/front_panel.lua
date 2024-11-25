@@ -39,7 +39,7 @@ local led_grn = style.led_grn
 local function init(panel, num_units)
     local ps = iocontrol.get_db().fp.ps
 
-    TextBox{parent=panel,y=1,text="SCADA COORDINATOR",alignment=ALIGN.CENTER,fg_bg=style.fp_theme.header}
+    TextBox{parent=panel,y=1,text="COORDENADOR SCADA",alignment=ALIGN.CENTER,fg_bg=style.fp_theme.header}
 
     local page_div = Div{parent=panel,x=1,y=3}
 
@@ -52,7 +52,7 @@ local function init(panel, num_units)
     local system = Div{parent=main_page,width=14,height=17,x=2,y=2}
 
     local status = LED{parent=system,label="STATUS",colors=cpair(colors.green,colors.red)}
-    local heartbeat = LED{parent=system,label="HEARTBEAT",colors=led_grn}
+    local heartbeat = LED{parent=system,label="PULSO",colors=led_grn}
     status.update(true)
     system.line_break()
 
@@ -61,12 +61,12 @@ local function init(panel, num_units)
     local modem = LED{parent=system,label="MODEM",colors=led_grn}
 
     if not style.colorblind then
-        local network = RGBLED{parent=system,label="NETWORK",colors={colors.green,colors.red,colors.orange,colors.yellow,style.fp_ind_bkg}}
+        local network = RGBLED{parent=system,label="REDE",colors={colors.green,colors.red,colors.orange,colors.yellow,style.fp_ind_bkg}}
         network.update(types.PANEL_LINK_STATE.DISCONNECTED)
         network.register(ps, "link_state", network.update)
     else
-        local nt_lnk = LEDPair{parent=system,label="NT LINKED",off=style.fp_ind_bkg,c1=colors.red,c2=colors.green}
-        local nt_ver = LEDPair{parent=system,label="NT VERSION",off=style.fp_ind_bkg,c1=colors.red,c2=colors.green}
+        local nt_lnk = LEDPair{parent=system,label="NT CONECT.",off=style.fp_ind_bkg,c1=colors.red,c2=colors.green}
+        local nt_ver = LEDPair{parent=system,label="NT VERS\xC3O",off=style.fp_ind_bkg,c1=colors.red,c2=colors.green}
 
         nt_lnk.register(ps, "link_state", function (state)
             local value = 2
@@ -102,7 +102,7 @@ local function init(panel, num_units)
 
     system.line_break()
 
-    local rt_main = LED{parent=system,label="RT MAIN",colors=led_grn}
+    local rt_main = LED{parent=system,label="RT PRINC.",colors=led_grn}
     local rt_render = LED{parent=system,label="RT RENDER",colors=led_grn}
 
     rt_main.register(ps, "routine__main", rt_main.update)
@@ -114,16 +114,16 @@ local function init(panel, num_units)
 
     local monitors = Div{parent=main_page,width=16,height=17,x=18,y=2}
 
-    local main_monitor = LED{parent=monitors,label="MAIN MONITOR",colors=led_grn}
+    local main_monitor = LED{parent=monitors,label="MONITOR PRINC.",colors=led_grn}
     main_monitor.register(ps, "main_monitor", main_monitor.update)
 
-    local flow_monitor = LED{parent=monitors,label="FLOW MONITOR",colors=led_grn}
+    local flow_monitor = LED{parent=monitors,label="MONITOR FLUXO",colors=led_grn}
     flow_monitor.register(ps, "flow_monitor", flow_monitor.update)
 
     monitors.line_break()
 
     for i = 1, num_units do
-        local unit_monitor = LED{parent=monitors,label="UNIT "..i.." MONITOR",colors=led_grn}
+        local unit_monitor = LED{parent=monitors,label="MONITOR UNID."..i.."",colors=led_grn}
         unit_monitor.register(ps, "unit_monitor_" .. i, unit_monitor.update)
     end
 

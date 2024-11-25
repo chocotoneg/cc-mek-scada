@@ -66,24 +66,24 @@ function system.create(tool_ctl, main_pane, cfg_sys, divs, ext, style)
 
     local net_pane = MultiPane{parent=net_cfg,x=1,y=4,panes={net_c_1,net_c_2,net_c_3,net_c_4}}
 
-    TextBox{parent=net_cfg,x=1,y=2,text=" Network Configuration",fg_bg=cpair(colors.black,colors.lightBlue)}
+    TextBox{parent=net_cfg,x=1,y=2,text=" Configura\xe7\xe3o de Rede",fg_bg=cpair(colors.black,colors.lightBlue)}
 
-    TextBox{parent=net_c_1,x=1,y=1,text="Please set the network channels below."}
-    TextBox{parent=net_c_1,x=1,y=3,height=4,text="Each of the 5 uniquely named channels, including the 3 below, must be the same for each device in this SCADA network. For multiplayer servers, it is recommended to not use the default channels.",fg_bg=g_lg_fg_bg}
+    TextBox{parent=net_c_1,x=1,y=1,text="Por favor defina todos os Canais de Rede Abaixo."}
+    TextBox{parent=net_c_1,x=1,y=3,height=4,text="Cada um dos 5 canais existentes tem nomes \xfanicos, incluindo os 3 abaixo, devem ser o mesmo para cada dispositivo na rede SCADA. Em servidores, \xe9 recomendado n\xe3o usar os canais padr\xe3o.",fg_bg=g_lg_fg_bg}
 
-    TextBox{parent=net_c_1,x=1,y=8,width=18,text="Supervisor Channel"}
-    local svr_chan = NumberField{parent=net_c_1,x=21,y=8,width=7,default=ini_cfg.SVR_Channel,min=1,max=65535,fg_bg=bw_fg_bg}
-    TextBox{parent=net_c_1,x=29,y=8,height=4,text="[SVR_CHANNEL]",fg_bg=g_lg_fg_bg}
+    TextBox{parent=net_c_1,x=1,y=8,width=19,text="Canal do Supervisor"}
+    local svr_chan = NumberField{parent=net_c_1,x=22,y=8,width=7,default=ini_cfg.SVR_Channel,min=1,max=65535,fg_bg=bw_fg_bg}
+    TextBox{parent=net_c_1,x=30,y=8,height=4,text="[SVR_CHANNEL]",fg_bg=g_lg_fg_bg}
 
-    TextBox{parent=net_c_1,x=1,y=10,width=19,text="Coordinator Channel"}
-    local crd_chan = NumberField{parent=net_c_1,x=21,y=10,width=7,default=ini_cfg.CRD_Channel,min=1,max=65535,fg_bg=bw_fg_bg}
-    TextBox{parent=net_c_1,x=29,y=10,height=4,text="[CRD_CHANNEL]",fg_bg=g_lg_fg_bg}
+    TextBox{parent=net_c_1,x=1,y=10,width=20,text="Canal do Coodernador"}
+    local crd_chan = NumberField{parent=net_c_1,x=22,y=10,width=7,default=ini_cfg.CRD_Channel,min=1,max=65535,fg_bg=bw_fg_bg}
+    TextBox{parent=net_c_1,x=30,y=10,height=4,text="[CRD_CHANNEL]",fg_bg=g_lg_fg_bg}
 
-    TextBox{parent=net_c_1,x=1,y=12,width=14,text="Pocket Channel"}
-    local pkt_chan = NumberField{parent=net_c_1,x=21,y=12,width=7,default=ini_cfg.PKT_Channel,min=1,max=65535,fg_bg=bw_fg_bg}
-    TextBox{parent=net_c_1,x=29,y=12,height=4,text="[PKT_CHANNEL]",fg_bg=g_lg_fg_bg}
+    TextBox{parent=net_c_1,x=1,y=12,width=15,text="Canal do Pocket"}
+    local pkt_chan = NumberField{parent=net_c_1,x=22,y=12,width=7,default=ini_cfg.PKT_Channel,min=1,max=65535,fg_bg=bw_fg_bg}
+    TextBox{parent=net_c_1,x=30,y=12,height=4,text="[PKT_CHANNEL]",fg_bg=g_lg_fg_bg}
 
-    local chan_err = TextBox{parent=net_c_1,x=8,y=14,width=35,text="Please set all channels.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
+    local chan_err = TextBox{parent=net_c_1,x=9,y=14,width=35,text="Por favor defina todos os Canais.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
 
     local function submit_channels()
         local svr_c, crd_c, pkt_c = tonumber(svr_chan.get_value()), tonumber(crd_chan.get_value()), tonumber(pkt_chan.get_value())
@@ -94,21 +94,21 @@ function system.create(tool_ctl, main_pane, cfg_sys, divs, ext, style)
         else chan_err.show() end
     end
 
-    PushButton{parent=net_c_1,x=1,y=14,text="\x1b Back",callback=function()main_pane.set_value(1)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
-    PushButton{parent=net_c_1,x=44,y=14,text="Next \x1a",callback=submit_channels,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=net_c_1,x=1,y=14,text="\x1bVoltar",callback=function()main_pane.set_value(1)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=net_c_1,x=44,y=14,text="Prox \x1a",callback=submit_channels,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
 
-    TextBox{parent=net_c_2,x=1,y=1,text="Please set the connection timeouts below."}
-    TextBox{parent=net_c_2,x=1,y=3,height=4,text="You generally should not need to modify these. On slow servers, you can try to increase this to make the system wait longer before assuming a disconnection. The default for all is 5 seconds.",fg_bg=g_lg_fg_bg}
+    TextBox{parent=net_c_2,x=1,y=1,text="Por favor defina o Tempo limite de cada abaixo."}
+    TextBox{parent=net_c_2,x=1,y=3,height=4,text="Normalmente n\xe3o \xe9 necess\xe1rio mudar os valores. Em servidores lentos, voc\xea pode aument\xe1-los para que o sistema espere mais antes de assumir uma desconex\xe3o. O padr\xe3o para todos \xe9 5 segundos.",fg_bg=g_lg_fg_bg}
 
-    TextBox{parent=net_c_2,x=1,y=8,width=19,text="Supervisor Timeout"}
-    local svr_timeout = NumberField{parent=net_c_2,x=20,y=8,width=7,default=ini_cfg.SVR_Timeout,min=2,max=25,max_chars=6,max_frac_digits=2,allow_decimal=true,fg_bg=bw_fg_bg}
+    TextBox{parent=net_c_2,x=1,y=8,width=26,text="Tempo Limite do Supervisor"}
+    local svr_timeout = NumberField{parent=net_c_2,x=30,y=8,width=7,default=ini_cfg.SVR_Timeout,min=2,max=25,max_chars=6,max_frac_digits=2,allow_decimal=true,fg_bg=bw_fg_bg}
 
-    TextBox{parent=net_c_2,x=1,y=10,width=14,text="Pocket Timeout"}
-    local api_timeout = NumberField{parent=net_c_2,x=20,y=10,width=7,default=ini_cfg.API_Timeout,min=2,max=25,max_chars=6,max_frac_digits=2,allow_decimal=true,fg_bg=bw_fg_bg}
+    TextBox{parent=net_c_2,x=1,y=10,width=22,text="Tempo Limite do Pocket"}
+    local api_timeout = NumberField{parent=net_c_2,x=30,y=10,width=7,default=ini_cfg.API_Timeout,min=2,max=25,max_chars=6,max_frac_digits=2,allow_decimal=true,fg_bg=bw_fg_bg}
 
-    TextBox{parent=net_c_2,x=28,y=8,height=4,width=7,text="seconds\n\nseconds",fg_bg=g_lg_fg_bg}
+    TextBox{parent=net_c_2,x=38,y=8,height=4,width=9,text="segundos\n\nsegundos",fg_bg=g_lg_fg_bg}
 
-    local ct_err = TextBox{parent=net_c_2,x=8,y=14,width=35,text="Please set all connection timeouts.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
+    local ct_err = TextBox{parent=net_c_2,x=11,y=14,width=30,text="Defina todos os Tempos Limites",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
 
     local function submit_timeouts()
         local svr_cto, api_cto = tonumber(svr_timeout.get_value()), tonumber(api_timeout.get_value())
@@ -119,16 +119,16 @@ function system.create(tool_ctl, main_pane, cfg_sys, divs, ext, style)
         else ct_err.show() end
     end
 
-    PushButton{parent=net_c_2,x=1,y=14,text="\x1b Back",callback=function()net_pane.set_value(1)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
-    PushButton{parent=net_c_2,x=44,y=14,text="Next \x1a",callback=submit_timeouts,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=net_c_2,x=1,y=14,text="\x1bVoltar",callback=function()net_pane.set_value(1)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=net_c_2,x=44,y=14,text="Prox \x1a",callback=submit_timeouts,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
 
-    TextBox{parent=net_c_3,x=1,y=1,text="Please set the trusted range below."}
-    TextBox{parent=net_c_3,x=1,y=3,height=3,text="Setting this to a value larger than 0 prevents connections with devices that many meters (blocks) away in any direction.",fg_bg=g_lg_fg_bg}
-    TextBox{parent=net_c_3,x=1,y=7,height=2,text="This is optional. You can disable this functionality by setting the value to 0.",fg_bg=g_lg_fg_bg}
+    TextBox{parent=net_c_3,x=1,y=1,text="Por favor defina o Alcan\xe7e Confi\xe1vel abaixo."}
+    TextBox{parent=net_c_3,x=1,y=3,height=3,text="Definir um valor maior que 0 impede conex\xf5es com dispositivos a muitos metros (blocos) de dist\xe3ncia em qualquer dire\xe7\xe3o.",fg_bg=g_lg_fg_bg}
+    TextBox{parent=net_c_3,x=1,y=7,height=2,text="Isto \xe9 opcional. Voc\xea pode desativar essa funcionalidade definindo o valor como 0.",fg_bg=g_lg_fg_bg}
 
     local range = NumberField{parent=net_c_3,x=1,y=10,width=10,default=ini_cfg.TrustedRange,min=0,max_chars=20,allow_decimal=true,fg_bg=bw_fg_bg}
 
-    local tr_err = TextBox{parent=net_c_3,x=8,y=14,width=35,text="Please set the trusted range.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
+    local tr_err = TextBox{parent=net_c_3,x=12,y=14,width=27,text="Defina o Alcan\xe7e Confi\xe1vel.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
 
     local function submit_tr()
         local range_val = tonumber(range.get_value())
@@ -140,23 +140,23 @@ function system.create(tool_ctl, main_pane, cfg_sys, divs, ext, style)
         else tr_err.show() end
     end
 
-    PushButton{parent=net_c_3,x=1,y=14,text="\x1b Back",callback=function()net_pane.set_value(2)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
-    PushButton{parent=net_c_3,x=44,y=14,text="Next \x1a",callback=submit_tr,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=net_c_3,x=1,y=14,text="\x1bVoltar",callback=function()net_pane.set_value(2)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=net_c_3,x=44,y=14,text="Prox \x1a",callback=submit_tr,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
 
-    TextBox{parent=net_c_4,x=1,y=1,height=2,text="Optionally, set the facility authentication key below. Do NOT use one of your passwords."}
-    TextBox{parent=net_c_4,x=1,y=4,height=6,text="This enables verifying that messages are authentic, so it is intended for security on multiplayer servers. All devices on the same network MUST use the same key if any device has a key. This does result in some extra computation (can slow things down).",fg_bg=g_lg_fg_bg}
+    TextBox{parent=net_c_4,x=1,y=1,height=2,text="Opcionalmente, defina a chave de autentica\xe7\xe3o da instala\xe7\xe3o abaixo. N\xc3O use uma de suas senhas."}
+    TextBox{parent=net_c_4,x=1,y=4,height=6,text="Isto permite verificar a autenticidade das mensagens, destinado \xe1 seguran\xe7a em servidores multiplayer. Todos os dispositivos na mesma rede DEVEM usar a mesma chave se algum dispositivo tiver uma. Pode gerar processamento extra (diminuindo a velocidade).",fg_bg=g_lg_fg_bg}
 
-    TextBox{parent=net_c_4,x=1,y=11,text="Facility Auth Key"}
+    TextBox{parent=net_c_4,x=1,y=11,text="Chave de Auten. da Instala\xe7\xe3o"}
     local key, _ = TextField{parent=net_c_4,x=1,y=12,max_len=64,value=ini_cfg.AuthKey,width=32,height=1,fg_bg=bw_fg_bg}
 
     local function censor_key(enable) key.censor(tri(enable, "*", nil)) end
 
-    local hide_key = Checkbox{parent=net_c_4,x=34,y=12,label="Hide",box_fg_bg=cpair(colors.lightBlue,colors.black),callback=censor_key}
+    local hide_key = Checkbox{parent=net_c_4,x=34,y=12,label="Esconder",box_fg_bg=cpair(colors.lightBlue,colors.black),callback=censor_key}
 
     hide_key.set_value(true)
     censor_key(true)
 
-    local key_err = TextBox{parent=net_c_4,x=8,y=14,width=35,text="Key must be at least 8 characters.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
+    local key_err = TextBox{parent=net_c_4,x=8,y=14,width=35,text="A chave deve ter pelo menos 8 caracteres. ",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
 
     local function submit_auth()
         local v = key.get_value()
@@ -174,8 +174,8 @@ function system.create(tool_ctl, main_pane, cfg_sys, divs, ext, style)
         else key_err.show() end
     end
 
-    PushButton{parent=net_c_4,x=1,y=14,text="\x1b Back",callback=function()net_pane.set_value(3)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
-    PushButton{parent=net_c_4,x=44,y=14,text="Next \x1a",callback=submit_auth,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=net_c_4,x=1,y=14,text="\x1bVoltar",callback=function()net_pane.set_value(3)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=net_c_4,x=44,y=14,text="Prox \x1a",callback=submit_auth,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
 
     --#endregion
 
@@ -183,20 +183,20 @@ function system.create(tool_ctl, main_pane, cfg_sys, divs, ext, style)
 
     local log_c_1 = Div{parent=log_cfg,x=2,y=4,width=49}
 
-    TextBox{parent=log_cfg,x=1,y=2,text=" Logging Configuration",fg_bg=cpair(colors.black,colors.pink)}
+    TextBox{parent=log_cfg,x=1,y=2,text=" Configura\xe7\xe3o de Registro",fg_bg=cpair(colors.black,colors.pink)}
 
-    TextBox{parent=log_c_1,x=1,y=1,text="Please configure logging below."}
+    TextBox{parent=log_c_1,x=1,y=1,text="Por favor configure o registro abaixo."}
 
-    TextBox{parent=log_c_1,x=1,y=3,text="Log File Mode"}
-    local mode = RadioButton{parent=log_c_1,x=1,y=4,default=ini_cfg.LogMode+1,options={"Append on Startup","Replace on Startup"},callback=function()end,radio_colors=cpair(colors.lightGray,colors.black),select_color=colors.pink}
+    TextBox{parent=log_c_1,x=1,y=3,text="Modo de Arquivamento do Registro"}
+    local mode = RadioButton{parent=log_c_1,x=1,y=4,default=ini_cfg.LogMode+1,options={"Anexar na Inicializa\xe7\xe3o","Substituir na Inicializa\xe7\xe3o"},callback=function()end,radio_colors=cpair(colors.lightGray,colors.black),select_color=colors.pink}
 
-    TextBox{parent=log_c_1,x=1,y=7,text="Log File Path"}
+    TextBox{parent=log_c_1,x=1,y=7,text="Caminho do Arquivo de Registro"}
     local path = TextField{parent=log_c_1,x=1,y=8,width=49,height=1,value=ini_cfg.LogPath,max_len=128,fg_bg=bw_fg_bg}
 
-    local en_dbg = Checkbox{parent=log_c_1,x=1,y=10,default=ini_cfg.LogDebug,label="Enable Logging Debug Messages",box_fg_bg=cpair(colors.pink,colors.black)}
-    TextBox{parent=log_c_1,x=3,y=11,height=2,text="This results in much larger log files. It is best to only use this when there is a problem.",fg_bg=g_lg_fg_bg}
+    local en_dbg = Checkbox{parent=log_c_1,x=1,y=10,default=ini_cfg.LogDebug,label="Ativar Registramento das Mensages de Depura\xe7\xe3o",box_fg_bg=cpair(colors.pink,colors.black)}
+    TextBox{parent=log_c_1,x=3,y=11,height=2,text="Isto gera arquivos de registro muito maiores. \xc9 melhor usar apenas em caso de problemas.",fg_bg=g_lg_fg_bg}
 
-    local path_err = TextBox{parent=log_c_1,x=8,y=14,width=35,text="Please provide a log file path.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
+    local path_err = TextBox{parent=log_c_1,x=8,y=14,width=35,text="Por favor, forne\xe7a um caminho para o arquivo de registro.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
 
     local function submit_log()
         if path.get_value() ~= "" then

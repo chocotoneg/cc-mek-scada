@@ -155,27 +155,27 @@ style.reactor = {
         },
         {
             color = cpair(colors.black, colors.orange),
-            text = "NOT FORMED"
+            text = "N\xc3O FORMADO"
         },
         {
             color = cpair(colors.black, colors.orange),
-            text = "PLC  FAULT"
+            text = "PLC  FALHO"
         },
         {
             color = cpair(colors.white, colors.gray),
-            text = "DISABLED"
+            text = "INATIVO"
         },
         {
             color = cpair(colors.black, colors.green),
-            text = "ACTIVE"
+            text = "ATIVO"
         },
         {
             color = cpair(colors.black, colors.red),
-            text = "SCRAMMED"
+            text = "DESLIGADO"
         },
         {
             color = cpair(colors.black, colors.red),
-            text = "FORCE DISABLED"
+            text = "DESATIVADO"
         }
     }
 }
@@ -189,19 +189,19 @@ style.boiler = {
         },
         {
             color = cpair(colors.black, colors.orange),
-            text = "NOT FORMED"
+            text = "N\xc3O FORMADO"
         },
         {
             color = cpair(colors.black, colors.orange),
-            text = "RTU  FAULT"
+            text = "RTU  FALHO"
         },
         {
             color = cpair(colors.white, colors.gray),
-            text = "IDLE"
+            text = "OCIOSO"
         },
         {
             color = cpair(colors.black, colors.green),
-            text = "ACTIVE"
+            text = "ATIVO"
         }
     }
 }
@@ -215,23 +215,23 @@ style.turbine = {
         },
         {
             color = cpair(colors.black, colors.orange),
-            text = "NOT FORMED"
+            text = "N\xc3O FORMADO"
         },
         {
             color = cpair(colors.black, colors.orange),
-            text = "RTU  FAULT"
+            text = "RTU  FALHO"
         },
         {
             color = cpair(colors.white, colors.gray),
-            text = "IDLE"
+            text = "OCIOSO"
         },
         {
             color = cpair(colors.black, colors.green),
-            text = "ACTIVE"
+            text = "ATIVO"
         },
         {
             color = cpair(colors.black, colors.red),
-            text = "TRIP"
+            text = "DESARME"
         }
     }
 }
@@ -245,11 +245,11 @@ style.imatrix = {
         },
         {
             color = cpair(colors.black, colors.orange),
-            text = "NOT FORMED"
+            text = "N\xc3O FORMADO"
         },
         {
             color = cpair(colors.black, colors.orange),
-            text = "RTU  FAULT"
+            text = "RTU  FALHO"
         },
         {
             color = cpair(colors.black, colors.green),
@@ -257,11 +257,11 @@ style.imatrix = {
         },
         {
             color = cpair(colors.black, colors.yellow),
-            text = "LOW CHARGE"
+            text = "CARGA BAIXA"
         },
         {
             color = cpair(colors.black, colors.yellow),
-            text = "HIGH  CHARGE"
+            text = "CARGA ALTA"
         }
     }
 }
@@ -275,19 +275,19 @@ style.sps = {
         },
         {
             color = cpair(colors.black, colors.orange),
-            text = "NOT FORMED"
+            text = "N\xc3O FORMADO"
         },
         {
             color = cpair(colors.black, colors.orange),
-            text = "RTU  FAULT"
+            text = "RTU  FALHO"
         },
         {
             color = cpair(colors.white, colors.gray),
-            text = "IDLE"
+            text = "OCIOSO"
         },
         {
             color = cpair(colors.black, colors.green),
-            text = "ACTIVE"
+            text = "ATIVO"
         }
     }
 }
@@ -301,11 +301,11 @@ style.dtank = {
         },
         {
             color = cpair(colors.black, colors.orange),
-            text = "NOT FORMED"
+            text = "N\xc3O FORMADO"
         },
         {
             color = cpair(colors.black, colors.orange),
-            text = "RTU  FAULT"
+            text = "RTU  FALHO"
         },
         {
             color = cpair(colors.black, colors.green),
@@ -313,11 +313,11 @@ style.dtank = {
         },
         {
             color = cpair(colors.black, colors.yellow),
-            text = "LOW FILL"
+            text = "PREEN. BAIXO"
         },
         {
             color = cpair(colors.black, colors.green),
-            text = "FILLED"
+            text = "PREENCHIDO"
         },
     }
 }
@@ -327,15 +327,15 @@ style.waste = {
     states = {
         {
             color = cpair(colors.black, colors.green),
-            text = "PLUTONIUM"
+            text = "PLUT\xd4NIO"
         },
         {
             color = cpair(colors.black, colors.cyan),
-            text = "POLONIUM"
+            text = "POL\xd4NIO"
         },
         {
             color = cpair(colors.black, colors.purple),
-            text = "ANTI MATTER"
+            text = "ANTI MAT\xc9RIA"
         }
     },
     states_abbrv = {
@@ -353,7 +353,7 @@ style.waste = {
         }
     },
     -- process radio button options
-    options = { "Plutonium", "Polonium", "Antimatter" },
+    options = { "Plut\xd4nio", "Pol\xd4nio", "AntiMat\xe9ria" },	
     -- unit waste selection
     unit_opts = {
         {
