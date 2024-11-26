@@ -135,13 +135,13 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
         if value == "0" or value == nil then mon_unit.set_value(0) end
     end
 
-    TextBox{parent=mon_c_3,x=1,y=6,width=10,text="Assignment"}
+    TextBox{parent=mon_c_3,x=1,y=6,width=10,text="Atribui\xe7\xe3o"}
     local mon_assign = RadioButton{parent=mon_c_3,x=1,y=7,default=1,options={"Monitor Prin.","Monitor de Fluxo","Monitor de Unidade"},callback=on_assign_mon,radio_colors=cpair(colors.lightGray,colors.black),select_color=colors.blue}
 
-    mon_unit_l = TextBox{parent=mon_c_3,x=18,y=6,width=7,text="Unit ID"}
+    mon_unit_l = TextBox{parent=mon_c_3,x=18,y=6,width=10,text="ID da Unid"}
     mon_unit = NumberField{parent=mon_c_3,x=18,y=7,width=10,max_chars=2,min=1,max=4,fg_bg=bw_fg_bg}
 
-    local mon_u_err = TextBox{parent=mon_c_3,x=8,y=14,width=35,text="Please provide a unit ID.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
+    local mon_u_err = TextBox{parent=mon_c_3,x=8,y=14,width=35,text="Por favor, forne\xe7a um ID da Unidade.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
 
     -- purge all assignments for a given monitor
     ---@param iface string
@@ -317,19 +317,19 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
         mon_unit.set_value(0)
 
         if w == 4 and h == 4 then
-            msg = "This could work as a unit display. Please configure below."
+            msg = "Isto pode funcionar como uma exibi\xe7\xe3o de unidade. Por favor, configure abaixo."
             self.mon_expect = { 3 }
             mon_assign.set_value(3)
         elseif w == 8 then
             if h >= tool_ctl.main_mon_h and h >= tool_ctl.flow_mon_h then
-                msg = "This could work as either your main monitor or flow monitor. Please configure below."
+                msg = "Isto pode funcionar como seu monitor principal ou de fluxo. Por favor, configure abaixo."
                 self.mon_expect = { 1, 2 }
                 if tmp_cfg.MainDisplay then mon_assign.set_value(2) end
             elseif h >= tool_ctl.main_mon_h then
-                msg = "This could work as your main monitor. Please configure below."
+                msg = "Isto pode funcionar como seu monitor principal. Por favor, configure abaixo."
                 self.mon_expect = { 1 }
             elseif h >= tool_ctl.flow_mon_h then
-                msg = "This could work as your flow monitor. Please configure below."
+                msg = "Isto pode funcionar como seu monitor de fluxo. Por favor, configure abaixo."
                 self.mon_expect = { 2 }
                 mon_assign.set_value(2)
             end
@@ -352,7 +352,7 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
 
         on_assign_mon(mon_assign.get_value())
 
-        mon_desc.set_value(util.c("Voc\xea selecionou '", iface, "', que tem o tamanho de ", w, " blocos longo por ", h, " altos. ", msg))
+        mon_desc.set_value(util.c("Voc\xea selecionou '", iface, "', que tem o tamanho de ", w, " blocos longo por ", h, " alto. ", msg))
         mon_pane.set_value(3)
     end
 
