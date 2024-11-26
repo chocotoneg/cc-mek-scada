@@ -352,7 +352,7 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
 
         on_assign_mon(mon_assign.get_value())
 
-        mon_desc.set_value(util.c("You have selected '", iface, "', which has a block size of ", w, " wide by ", h, " tall. ", msg))
+        mon_desc.set_value(util.c("Voc\xea selecionou '", iface, "', que tem o tamanho de ", w, " blocos longo por ", h, " altos. ", msg))
         mon_pane.set_value(3)
     end
 
