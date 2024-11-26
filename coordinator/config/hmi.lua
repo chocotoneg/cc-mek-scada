@@ -184,10 +184,10 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
     PushButton{parent=mon_c_3,x=1,y=14,text="\x1bVoltar",callback=function()mon_pane.set_value(2)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
     self.apply_mon = PushButton{parent=mon_c_3,x=43,y=14,min_width=7,text="Aplicar",callback=apply_monitor,fg_bg=cpair(colors.black,colors.blue),active_fg_bg=btn_act_fg_bg,dis_fg_bg=btn_dis_fg_bg}
 
-    TextBox{parent=mon_c_4,x=1,y=1,height=3,text="For legacy compatibility with facilities built without space for a flow monitor, you can disable the flow monitor requirement here."}
-    TextBox{parent=mon_c_4,x=1,y=5,height=3,text="Please be aware that THIS OPTION WILL BE REMOVED ON RELEASE. Disabling it will only be available for the remainder of the beta."}
+    TextBox{parent=mon_c_4,x=1,y=1,height=3,text="Para compatibilidade com instala\xe7\xf5es antigas sem espa\xe7o para um monitor de fluxo, voc\xea pode desativar a exig\xeancia do monitor de fluxo aqui."}
+    TextBox{parent=mon_c_4,x=1,y=5,height=3,text="Esteja ciente de que ESTA OP\xc7\xc3O SER\xc1 REMOVIDA NA VERS\xc3O FINAL. Desativ\xea-la s\xf3 ser\xea poss\xedvel at\xe9 o final da vers\xe3o beta."}
 
-    tool_ctl.dis_flow_view = Checkbox{parent=mon_c_4,x=1,y=9,default=ini_cfg.DisableFlowView,label="Disable Flow View Monitor",box_fg_bg=cpair(colors.blue,colors.black)}
+    tool_ctl.dis_flow_view = Checkbox{parent=mon_c_4,x=1,y=9,default=ini_cfg.DisableFlowView,label="Desabilitar Monitor de Visualiza\xe7\xe3o de Fluxo",box_fg_bg=cpair(colors.blue,colors.black)}
 
     local function back_from_legacy()
         tmp_cfg.DisableFlowView = tool_ctl.dis_flow_view.get_value()
