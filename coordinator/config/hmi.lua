@@ -203,16 +203,16 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
 
     local spkr_c = Div{parent=spkr_cfg,x=2,y=4,width=49}
 
-    TextBox{parent=spkr_cfg,x=1,y=2,text=" Speaker Configuration",fg_bg=cpair(colors.black,colors.cyan)}
+    TextBox{parent=spkr_cfg,x=1,y=2,text=" Configura\xe7\xe3o do Speaker",fg_bg=cpair(colors.black,colors.cyan)}
 
-    TextBox{parent=spkr_c,x=1,y=1,height=2,text="The coordinator uses a speaker to play alarm sounds."}
-    TextBox{parent=spkr_c,x=1,y=4,height=3,text="You can change the speaker audio volume from the default. The range is 0.0 to 3.0, where 1.0 is standard volume."}
+    TextBox{parent=spkr_c,x=1,y=1,height=2,text="O coordenador usa um Speaker para reproduzir sons de alarme."}
+    TextBox{parent=spkr_c,x=1,y=4,height=3,text="Voc\xea pode alterar o volume do \xe1udio do Speaker. A faixa vai de 0.0 a 3.0, sendo 1.0 o volume padr\xe3o."}
 
     tool_ctl.s_vol = NumberField{parent=spkr_c,x=1,y=8,width=9,max_chars=7,allow_decimal=true,default=ini_cfg.SpeakerVolume,min=0,max=3,fg_bg=bw_fg_bg}
 
-    TextBox{parent=spkr_c,x=1,y=10,height=3,text="Note: alarm sine waves are at half scale so that multiple will be required to reach full scale.",fg_bg=g_lg_fg_bg}
+    TextBox{parent=spkr_c,x=1,y=10,height=3,text="Nota: as ondas senoidais do alarme est\xe3o em meia escala, portanto, ser\xe1 necess\xe1rio mais de uma para atingir a escala total.",fg_bg=g_lg_fg_bg}
 
-    local s_vol_err = TextBox{parent=spkr_c,x=8,y=14,width=35,text="Please set a volume.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
+    local s_vol_err = TextBox{parent=spkr_c,x=12,y=14,width=28,text="Por favor, defina um volume.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
 
     local function submit_vol()
         local vol = tonumber(tool_ctl.s_vol.get_value())
@@ -232,14 +232,14 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
 
     local crd_c_1 = Div{parent=crd_cfg,x=2,y=4,width=49}
 
-    TextBox{parent=crd_cfg,x=1,y=2,text=" Coordinator UI Configuration",fg_bg=cpair(colors.black,colors.lime)}
+    TextBox{parent=crd_cfg,x=1,y=2,text=" Configura\xe7\xe3o da UI do Coordenador",fg_bg=cpair(colors.black,colors.lime)}
 
-    TextBox{parent=crd_c_1,x=1,y=1,height=3,text="Configure the UI interface options below if you wish to customize formats."}
+    TextBox{parent=crd_c_1,x=1,y=1,height=3,text="Configure as op\xe7\xf5es da interface abaixo para personalizar os formatos."}
 
-    TextBox{parent=crd_c_1,x=1,y=4,text="Clock Time Format"}
+    TextBox{parent=crd_c_1,x=1,y=4,text="Sistema de Hor\xe1rio"}
     tool_ctl.clock_fmt = RadioButton{parent=crd_c_1,x=1,y=5,default=util.trinary(ini_cfg.Time24Hour,1,2),options={"24-Hour","12-Hour"},callback=function()end,radio_colors=cpair(colors.lightGray,colors.black),select_color=colors.lime}
 
-    TextBox{parent=crd_c_1,x=1,y=8,text="Escala de Temp."}
+    TextBox{parent=crd_c_1,x=1,y=8,text="Escala de Temperatura"}
     tool_ctl.temp_scale = RadioButton{parent=crd_c_1,x=1,y=9,default=ini_cfg.TempScale,options=types.TEMP_SCALE_NAMES,callback=function()end,radio_colors=cpair(colors.lightGray,colors.black),select_color=colors.lime}
 
     TextBox{parent=crd_c_1,x=24,y=8,text="Escala de Energia"}
@@ -286,18 +286,18 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
         tool_ctl.flow_mon_h = 2 + tmp_cfg.UnitCount
 
         local asterisk = util.trinary(tool_ctl.sv_cool_conf == nil, "*", "")
-        local m_at_least = util.trinary(tool_ctl.main_mon_h < 6, "at least ", "")
-        local f_at_least = util.trinary(tool_ctl.flow_mon_h < 6, "at least ", "")
+        local m_at_least = util.trinary(tool_ctl.main_mon_h < 6, "pelo menos ", "")
+        local f_at_least = util.trinary(tool_ctl.flow_mon_h < 6, "pelo menos ", "")
 
         mon_reqs.remove_all()
 
-        TextBox{parent=mon_reqs,x=1,y=1,text="\x1a "..tmp_cfg.UnitCount.." Unit View Monitor"..util.trinary(plural,"s","")}
-        TextBox{parent=mon_reqs,x=1,y=1,text="  "..util.trinary(plural,"each ","").."must be 4 blocks wide by 4 tall",fg_bg=cpair(colors.gray,colors.white)}
-        TextBox{parent=mon_reqs,x=1,y=1,text="\x1a 1 Main View Monitor"}
-        TextBox{parent=mon_reqs,x=1,y=1,text="  must be 8 blocks wide by "..m_at_least..tool_ctl.main_mon_h..asterisk.." tall",fg_bg=cpair(colors.gray,colors.white)}
+        TextBox{parent=mon_reqs,x=1,y=1,text="\x1a "..tmp_cfg.UnitCount.." Monitor de Visualiza\xe7\xe3o de Unidade"..util.trinary(plural,"s","")}
+        TextBox{parent=mon_reqs,x=1,y=1,text="  "..util.trinary(plural,"cada ","").."deve ser 4 blocos longo por 4 alto",fg_bg=cpair(colors.gray,colors.white)}
+        TextBox{parent=mon_reqs,x=1,y=1,text="\x1a 1 Monitor de Visualiza\xe7\xe3o Principal"}
+        TextBox{parent=mon_reqs,x=1,y=1,text="  deve ser 8 blocos longo por "..m_at_least..tool_ctl.main_mon_h..asterisk.." alto",fg_bg=cpair(colors.gray,colors.white)}
         if not tmp_cfg.DisableFlowView then
-            TextBox{parent=mon_reqs,x=1,y=1,text="\x1a 1 Flow View Monitor"}
-            TextBox{parent=mon_reqs,x=1,y=1,text="  must be 8 blocks wide by "..f_at_least..tool_ctl.flow_mon_h.." tall",fg_bg=cpair(colors.gray,colors.white)}
+            TextBox{parent=mon_reqs,x=1,y=1,text="\x1a 1 Monitor de Visualiza\xe7\xe3o de Fluxo"}
+            TextBox{parent=mon_reqs,x=1,y=1,text="  deve ser 8 blocos longo por "..f_at_least..tool_ctl.flow_mon_h.." alto",fg_bg=cpair(colors.gray,colors.white)}
         end
     end
 
@@ -374,7 +374,7 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
             dev.clear()
             dev.setCursorPos(1, 1)
             dev.setTextColor(colors.magenta)
-            dev.write("This is monitor")
+            dev.write("Este \xe9 o monitor")
             dev.setCursorPos(1, 2)
             dev.setTextColor(colors.white)
             dev.write(iface)
@@ -382,16 +382,16 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
             local assignment = "Unused"
 
             if tmp_cfg.MainDisplay == iface then
-                assignment = "Main"
+                assignment = "Principal"
                 missing.main = false
             elseif tmp_cfg.FlowDisplay == iface then
-                assignment = "Flow"
+                assignment = "Fluxo"
                 missing.flow = false
             else
                 for i = 1, tmp_cfg.UnitCount do
                     if tmp_cfg.UnitDisplays[i] == iface then
                         missing.unit[i] = false
-                        assignment = "Unit " .. i
+                        assignment = "Unid " .. i
                         break
                     end
                 end
@@ -418,10 +418,10 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
 
         local dc_list = {} -- disconnected monitor list
 
-        if missing.main then table.insert(dc_list, { "Main", tmp_cfg.MainDisplay }) end
-        if missing.flow then table.insert(dc_list, { "Flow", tmp_cfg.FlowDisplay }) end
+        if missing.main then table.insert(dc_list, { "Princ", tmp_cfg.MainDisplay }) end
+        if missing.flow then table.insert(dc_list, { "Fluxo", tmp_cfg.FlowDisplay }) end
         for i = 1, tmp_cfg.UnitCount do
-            if missing.unit[i] then table.insert(dc_list, { "Unit " .. i, tmp_cfg.UnitDisplays[i] }) end
+            if missing.unit[i] then table.insert(dc_list, { "Unid " .. i, tmp_cfg.UnitDisplays[i] }) end
         end
 
         -- add monitors that are assigned but not connected
@@ -429,7 +429,7 @@ function hmi.create(tool_ctl, main_pane, cfg_sys, divs, style)
             local line = Div{parent=mon_list,x=1,y=1,height=1}
 
             TextBox{parent=line,x=1,y=1,width=6,text=dc_list[i][1],fg_bg=cpair(colors.blue,colors.white)}
-            TextBox{parent=line,x=8,y=1,text="disconnected",fg_bg=cpair(colors.red,colors.white)}
+            TextBox{parent=line,x=8,y=1,text="disconectado",fg_bg=cpair(colors.red,colors.white)}
 
             local function unset_mon()
                 purge_assignments(dc_list[i][2])

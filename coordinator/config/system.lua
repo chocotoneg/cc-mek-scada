@@ -235,7 +235,7 @@ function system.create(tool_ctl, main_pane, cfg_sys, divs, ext, style)
     TextBox{parent=clr_c_1,x=18,y=7,text="Tema do Painel Frontal"}
     local fp_theme = RadioButton{parent=clr_c_1,x=18,y=8,default=ini_cfg.FrontPanelTheme,options=themes.FP_THEME_NAMES,callback=function()end,radio_colors=cpair(colors.lightGray,colors.black),select_color=colors.magenta}
 
-    TextBox{parent=clr_c_2,x=1,y=1,height=6,text="Este sistema usa cores para diferenciar status, com alguns indicadores usando v\xe1rias cores. Ao selecionar um modo abaixo, os indicadores mudar\xe3o conforme mostrado. Em modos n\xe3o padr\xe3o, indicadores com mais de duas cores geralmente ser\xe3o divididos."}
+    TextBox{parent=clr_c_2,x=1,y=1,height=6,text="Este sistema usa cores para diferenciar status, com alguns indicadores usando v\xe1rias cores. Ao selecionar um modo abaixo, os indicadores mudar\xe3o conforme mostrado. Em outros modos, indicadores com mais de duas cores ser\xe3o divididos."}
 
     TextBox{parent=clr_c_2,x=21,y=7,text="Prever"}
     local _ = IndLight{parent=clr_c_2,x=21,y=8,label="Bom",colors=cpair(colors.black,colors.green)}
