@@ -193,7 +193,7 @@ function system.create(tool_ctl, main_pane, cfg_sys, divs, ext, style)
     TextBox{parent=log_c_1,x=1,y=7,text="Caminho do Arquivo de Registro"}
     local path = TextField{parent=log_c_1,x=1,y=8,width=49,height=1,value=ini_cfg.LogPath,max_len=128,fg_bg=bw_fg_bg}
 
-    local en_dbg = Checkbox{parent=log_c_1,x=1,y=10,default=ini_cfg.LogDebug,label="Ativar Registramento das Mensages de Depura\xe7\xe3o",box_fg_bg=cpair(colors.pink,colors.black)}
+    local en_dbg = Checkbox{parent=log_c_1,x=1,y=10,default=ini_cfg.LogDebug,label="Ativar Registro das Mensagens de Depura\xe7\xe3o",box_fg_bg=cpair(colors.pink,colors.black)}
     TextBox{parent=log_c_1,x=3,y=11,height=2,text="Isto gera arquivos de registro muito maiores. \xc9 melhor usar apenas em caso de problemas.",fg_bg=g_lg_fg_bg}
 
     local path_err = TextBox{parent=log_c_1,x=8,y=14,width=35,text="Por favor, forne\xe7a um caminho para o arquivo de registro.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
