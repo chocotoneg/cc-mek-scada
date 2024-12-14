@@ -32,7 +32,7 @@ local function new_view(root, x, y, ps)
     local status    = StateIndicator{parent=reactor,x=6,y=1,states=style.reactor.states,value=1,min_width=16}
     local core_temp = DataIndicator{parent=reactor,x=2,y=3,lu_colors=lu_col,label="Temp. N\xfacleo:",unit=db.temp_label,format="%7.2f",value=0,commas=true,width=26,fg_bg=text_fg}
     local burn_r    = DataIndicator{parent=reactor,x=2,y=4,lu_colors=lu_col,label="Tax. Queima:",unit="mB/t",format="%8.2f",value=0,width=26,fg_bg=text_fg}
-    local heating_r = DataIndicator{parent=reactor,x=2,y=5,lu_colors=lu_col,label="Aquecim.",unit="mB/t",format="%12.0f",value=0,commas=true,width=26,fg_bg=text_fg}
+    local heating_r = DataIndicator{parent=reactor,x=2,y=5,lu_colors=lu_col,label="Aquecim.:",unit="mB/t",format="%12.0f",value=0,commas=true,width=26,fg_bg=text_fg}
 
     status.register(ps, "computed_status", status.update)
     core_temp.register(ps, "temp", function (t) core_temp.update(db.temp_convert(t)) end)
