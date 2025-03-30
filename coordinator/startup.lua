@@ -47,10 +47,10 @@ local loaded, monitors = coordinator.load_config()
 while wait_on_load and loaded == 2 and os.clock() < CHUNK_LOAD_DELAY_S do
     term.clear()
     term.setCursorPos(1, 1)
-    println("There was a monitor configuration problem at boot.\n")
-    println("Startup will keep trying every 2s in case of chunk load delays.\n")
-    println(util.sprintf("The configurator will be started in %ds if all attempts fail.\n", math.max(0, CHUNK_LOAD_DELAY_S - os.clock())))
-    println("(click to skip to the configurator)")
+    println("Aconteceu um problema de configura\xe7\xe3o de monitores na inicializa\xe7\xe3o.\n")
+    println("Inicializa\xe7\xe3o ira continuar a cada 2s em caso de carrega\xe7\xe3o de chunks lenta.\n")
+    println(util.sprintf("O configurador ira iniciar em %ds se todas as tentativas falharem.\n", math.max(0, CHUNK_LOAD_DELAY_S - os.clock())))
+    println("(clique para pular o configurador)")
 
     local timer_id = util.start_timer(2)
 
@@ -74,11 +74,11 @@ if loaded ~= 0 then
     if success then
         loaded, monitors = coordinator.load_config()
         if loaded ~= 0 then
-            println(util.trinary(loaded == 2, "monitor configuration invalid", "failed to load a valid configuration") .. ", please reconfigure")
+            println(util.trinary(loaded == 2, "configura\xe7\xe3o de monitor inv\xe1lida", "n\xe3o foi poss\xedvel carregar uma configura\xe7\xe3o v\xedlida/") .. ", por favor reconfigure")
             return
         end
     else
-        println("configuration error: " .. error)
+        println("erro de configura\xe7\xe3o: " .. error)
         return
     end
 end
@@ -95,9 +95,9 @@ local config = coordinator.config
 log.init(config.LogPath, config.LogMode, config.LogDebug)
 
 log.info("========================================")
-log.info("BOOTING coordinator.startup " .. COORDINATOR_VERSION)
+log.info("CARREGANDO coordinator.startup " .. COORDINATOR_VERSION)
 log.info("========================================")
-println(">> SCADA Coordinator " .. COORDINATOR_VERSION .. " <<")
+println(">> Coordenador SCADA " .. COORDINATOR_VERSION .. " <<")
 
 crash.set_env("coordinator", COORDINATOR_VERSION)
 crash.dbg_log_env()
@@ -126,9 +126,9 @@ local function main()
     -- lets get started!
     log.info("monitors ready, dmesg output incoming...")
 
-    log_render("displays connected and reset")
-    log_sys("system start on " .. os.date("%c"))
-    log_boot("starting " .. COORDINATOR_VERSION)
+    log_render("monitores conectados e reiniciados")
+    log_sys("sistema iniciado em " .. os.date("%c"))
+    log_boot("iniciando " .. COORDINATOR_VERSION)
 
     ----------------------------------------
     -- memory allocation
@@ -178,16 +178,16 @@ local function main()
     ----------------------------------------
 
     if smem_dev.speaker == nil then
-        log_boot("annunciator alarm speaker not found")
-        println("startup> speaker not found")
-        log.fatal("no annunciator alarm speaker found")
+        log_boot("speaker anunciador de alarme n\xe3o foi localizado")
+        println("inicializa\xe7\xe3o> n\xe3o foi localizado")
+        log.fatal("nenhum speaker anunciador de alarme localizado")
         return
     else
         local sounder_start = util.time_ms()
-        log_boot("annunciator alarm speaker connected")
+        log_boot("speaker anunciador de alarme conectado")
         sounder.init(smem_dev.speaker, config.SpeakerVolume)
-        log_boot("tone generation took " .. (util.time_ms() - sounder_start) .. "ms")
-        log_sys("annunciator alarm configured")
+        log_boot("gerador de tons levou " .. (util.time_ms() - sounder_start) .. "ms")
+        log_sys("anunciador de alarme configurado")
         iocontrol.fp_has_speaker(true)
     end
 
@@ -198,45 +198,45 @@ local function main()
     -- message authentication init
     if type(config.AuthKey) == "string" and string.len(config.AuthKey) > 0 then
         local init_time = network.init_mac(config.AuthKey)
-        log_crypto("HMAC init took " .. init_time .. "ms")
+        log_crypto("inicializa\xe7\xe3o do HMAC levou " .. init_time .. "ms")
     end
 
     -- get the communications modem
     if smem_dev.modem == nil then
-        log_comms("wireless modem not found")
-        println("startup> wireless modem not found")
-        log.fatal("no wireless modem on startup")
+        log_comms("modem sem fio n\xe3o localizado")
+        println("inicializa\xe7\xe3o> modem sem fio n\xe3o localizado")
+        log.fatal("nenhum modem sem fio localizado na inicializa\xe7\xe3o")
         return
     else
-        log_comms("wireless modem connected")
+        log_comms("modem sem fio conectado")
         iocontrol.fp_has_modem(true)
     end
 
     -- create connection watchdog
     smem_sys.conn_watchdog = util.new_watchdog(config.SVR_Timeout)
     smem_sys.conn_watchdog.cancel()
-    log.debug("startup> conn watchdog created")
+    log.debug("inicializa\xe7\xe3o> conn watchdog created")
 
     -- create network interface then setup comms
     smem_sys.nic = network.nic(smem_dev.modem)
     smem_sys.coord_comms = coordinator.comms(COORDINATOR_VERSION, smem_sys.nic, smem_sys.conn_watchdog)
-    log.debug("startup> comms init")
-    log_comms("comms initialized")
+    log.debug("inicializa\xe7\xe3o> comms inicando")
+    log_comms("comms iniciado")
 
     ----------------------------------------
     -- start front panel
     ----------------------------------------
 
-    log_render("starting front panel UI...")
+    log_render("iniciando UI do painel frontal...")
 
     local fp_message
     crd_state.fp_ok, fp_message = renderer.try_start_fp()
     if not crd_state.fp_ok then
-        log_render(util.c("front panel UI error: ", fp_message))
-        println_ts("front panel UI creation failed")
-        log.fatal(util.c("front panel GUI render failed with error ", fp_message))
+        log_render(util.c("erro na UI do painel frontal: ", fp_message))
+        println_ts("cria\xe7\xe3o do UI do painel frontal falhou")
+        log.fatal(util.c("renderizador de GUI do painel frontal falhou com um erro ", fp_message))
         return
-    else log_render("front panel ready") end
+    else log_render("painel frontal pronto") end
 
     ----------------------------------------
     -- start system
@@ -246,7 +246,7 @@ local function main()
     local main_thread   = threads.thread__main(__shared_memory)
     local render_thread = threads.thread__render(__shared_memory)
 
-    log.info("startup> completed")
+    log.info("inicializa\xe7\xe3o> completada")
 
     -- run threads
     parallel.waitForAll(main_thread.p_exec, render_thread.p_exec)
@@ -254,16 +254,16 @@ local function main()
     renderer.close_ui()
     renderer.close_fp()
     sounder.stop()
-    log_sys("system shutdown")
+    log_sys("sistema desligando")
 
-    if crd_state.link_fail then println_ts("failed to connect to supervisor") end
-    if not crd_state.ui_ok then println_ts("main UI creation failed") end
+    if crd_state.link_fail then println_ts("conex\xe3o com o supervisor falhou") end
+    if not crd_state.ui_ok then println_ts("cria\xe7\xe3o da UI principal falhou") end
 
     -- close on error exit (such as UI error)
     if smem_sys.coord_comms.is_linked() then smem_sys.coord_comms.close() end
 
-    println_ts("exited")
-    log.info("exited")
+    println_ts("encerrado")
+    log.info("encerrado")
 end
 
 if not xpcall(main, crash.handler) then
