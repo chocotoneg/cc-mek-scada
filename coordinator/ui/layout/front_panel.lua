@@ -41,7 +41,7 @@ local function init(panel, num_units)
 
     local term_w, term_h = term.getSize()
 
-    TextBox{parent=panel,y=1,text="SCADA COORDINATOR",alignment=ALIGN.CENTER,fg_bg=style.fp_theme.header}
+    TextBox{parent=panel,y=1,text="COORDENADOR SCADA",alignment=ALIGN.CENTER,fg_bg=style.fp_theme.header}
 
     local page_div = Div{parent=panel,x=1,y=3}
 
@@ -54,7 +54,7 @@ local function init(panel, num_units)
     local system = Div{parent=main_page,width=14,height=17,x=2,y=2}
 
     local status = LED{parent=system,label="STATUS",colors=cpair(colors.green,colors.red)}
-    local heartbeat = LED{parent=system,label="HEARTBEAT",colors=led_grn}
+    local heartbeat = LED{parent=system,label="PULSO",colors=led_grn}
     status.update(true)
     system.line_break()
 
@@ -63,12 +63,12 @@ local function init(panel, num_units)
     local modem = LED{parent=system,label="MODEM",colors=led_grn}
 
     if not style.colorblind then
-        local network = RGBLED{parent=system,label="NETWORK",colors={colors.green,colors.red,colors.yellow,colors.orange,style.fp_ind_bkg}}
+        local network = RGBLED{parent=system,label="REDE",colors={colors.green,colors.red,colors.yellow,colors.orange,style.fp_ind_bkg}}
         network.update(types.PANEL_LINK_STATE.DISCONNECTED)
         network.register(ps, "link_state", network.update)
     else
-        local nt_lnk = LEDPair{parent=system,label="NT LINKED",off=style.fp_ind_bkg,c1=colors.red,c2=colors.green}
-        local nt_ver = LEDPair{parent=system,label="NT VERSION",off=style.fp_ind_bkg,c1=colors.red,c2=colors.green}
+        local nt_lnk = LEDPair{parent=system,label="NT CONECT.",off=style.fp_ind_bkg,c1=colors.red,c2=colors.green}
+        local nt_ver = LEDPair{parent=system,label="NT VERS\xC3O",off=style.fp_ind_bkg,c1=colors.red,c2=colors.green}
 
         nt_lnk.register(ps, "link_state", function (state)
             local value = 2

@@ -29,8 +29,7 @@ local function new_view(root, x, y, ps)
 
     local status = StateIndicator{parent=boiler,x=9,y=1,states=style.boiler.states,value=1,min_width=12}
     local temp   = DataIndicator{parent=boiler,x=5,y=3,lu_colors=lu_col,label="Temp:",unit=db.temp_label,format="%10.2f",value=0,commas=true,width=22,fg_bg=text_fg}
-    local boil_r = DataIndicator{parent=boiler,x=5,y=4,lu_colors=lu_col,label="Boil:",unit="mB/t",format="%10.0f",value=0,commas=true,width=22,fg_bg=text_fg}
-
+    local boil_r = DataIndicator{parent=boiler,x=5,y=4,lu_colors=lu_col,label="Ebuli.:",unit="mB/t",format="%8.2f",value=0,commas=true,width=22,fg_bg=text_fg}
     status.register(ps, "computed_status", status.update)
     temp.register(ps, "temperature", function (t) temp.update(db.temp_convert(t)) end)
     boil_r.register(ps, "boil_rate", boil_r.update)

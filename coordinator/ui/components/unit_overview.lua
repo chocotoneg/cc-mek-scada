@@ -27,8 +27,8 @@ local function make(parent, x, y, unit)
     local num_boilers = #unit.boiler_data_tbl
     local num_turbines = #unit.turbine_data_tbl
 
-    assert(num_boilers  >= 0 and num_boilers  <= 2, "minimum 0 boilers, maximum 2 boilers")
-    assert(num_turbines >= 1 and num_turbines <= 3, "minimum 1 turbine, maximum 3 turbines")
+    assert(num_boilers  >= 0 and num_boilers  <= 2, "m\xednimo 0 caldeiras, m\xe1ximo 2 caldeiras")
+    assert(num_turbines >= 1 and num_turbines <= 3, "m\xednimo 1 turbina, m\xe1ximo 3 turbinas")
 
     local height = 25
 
@@ -38,13 +38,13 @@ local function make(parent, x, y, unit)
         height = 17
     end
 
-    assert(parent.get_height() >= (y + height), "main display not of sufficient vertical resolution (add an additional row of monitors)")
+    assert(parent.get_height() >= (y + height), "monitor principal sem resolu\xe7\xe3o vertical suficiente (adicione uma camada extra de monitores)")
 
     -- bounding box div
     local root = Div{parent=parent,x=x,y=y,width=80,height=height}
 
     -- unit header message
-    TextBox{parent=root,text="Unit #"..unit.unit_id,alignment=ALIGN.CENTER,fg_bg=style.theme.header}
+    TextBox{parent=root,text="Unidade #"..unit.unit_id,alignment=ALIGN.CENTER,fg_bg=style.theme.header}
 
     -------------
     -- REACTOR --

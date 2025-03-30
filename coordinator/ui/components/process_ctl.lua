@@ -50,7 +50,7 @@ local function new_view(root, x, y)
     local ind_red = style.ind_red
     local ind_wht = style.ind_wht
 
-    assert(root.get_height() >= (y + 24), "main display not of sufficient vertical resolution (add an additional row of monitors)")
+    assert(root.get_height() >= (y + 24), "monitor principal sem resolu\xe7\xe3o vertical suficiente (adicione uma camada extra de monitores))")
 
     local black = cpair(colors.black, colors.black)
     local blk_brn = cpair(colors.black, colors.brown)
@@ -64,15 +64,15 @@ local function new_view(root, x, y)
     local main = Div{parent=root,width=128,height=24,x=x,y=y}
 
     local scram = HazardButton{parent=main,x=1,y=1,text="FAC SCRAM",accent=colors.yellow,dis_colors=dis_colors,callback=db.process.fac_scram,fg_bg=hzd_fg_bg}
-    local ack_a = HazardButton{parent=main,x=16,y=1,text="ACK \x13",accent=colors.orange,dis_colors=dis_colors,callback=db.process.fac_ack_alarms,fg_bg=hzd_fg_bg}
+    local ack_a = HazardButton{parent=main,x=16,y=1,text="CONF\x13",accent=colors.orange,dis_colors=dis_colors,callback=db.process.fac_ack_alarms,fg_bg=hzd_fg_bg}
 
     db.process.fac_ack.on_scram = scram.on_response
     db.process.fac_ack.on_ack_alarms = ack_a.on_response
 
-    local all_ok  = IndicatorLight{parent=main,y=5,label="Unit Systems Online",colors=ind_grn}
-    local rad_mon = TriIndicatorLight{parent=main,label="Radiation Monitor",c1=style.ind_bkg,c2=ind_yel.fgd,c3=ind_grn.fgd}
-    local ind_mat = IndicatorLight{parent=main,label="Induction Matrix",colors=ind_grn}
-    local sps     = IndicatorLight{parent=main,label="SPS Connected",colors=ind_grn}
+    local all_ok  = IndicatorLight{parent=main,y=5,label="Sist. de Unidades Online",colors=ind_grn}
+    local rad_mon = TriIndicatorLight{parent=main,label="Monitor de Radia\xe7\xe3o",c1=style.ind_bkg,c2=ind_yel.fgd,c3=ind_grn.fgd}
+    local ind_mat = IndicatorLight{parent=main,label="Matriz de Indu\xe7\xe3o",colors=ind_grn}
+    local sps     = IndicatorLight{parent=main,label="SPS Conectado",colors=ind_grn}
 
     all_ok.register(facility.ps, "all_sys_ok", all_ok.update)
     rad_mon.register(facility.ps, "rad_computed_status", rad_mon.update)
@@ -81,10 +81,10 @@ local function new_view(root, x, y)
 
     main.line_break()
 
-    local auto_ready = IndicatorLight{parent=main,label="Configured Units Ready",colors=ind_grn}
-    local auto_act   = IndicatorLight{parent=main,label="Process Active",colors=ind_grn}
-    local auto_ramp  = IndicatorLight{parent=main,label="Process Ramping",colors=ind_wht,flash=true,period=period.BLINK_250_MS}
-    local auto_sat   = IndicatorLight{parent=main,label="Min/Max Burn Rate",colors=ind_yel}
+    local auto_ready = IndicatorLight{parent=main,label="Unids. Configs. Prontas",colors=ind_grn}
+    local auto_act   = IndicatorLight{parent=main,label="Processo Ativo",colors=ind_grn}
+    local auto_ramp  = IndicatorLight{parent=main,label="Processo em Subida",colors=ind_wht,flash=true,period=period.BLINK_250_MS}
+    local auto_sat   = IndicatorLight{parent=main,label="Taxa M\xedn/M\xe1x de Queima",colors=ind_yel}
 
     auto_ready.register(facility.ps, "auto_ready", auto_ready.update)
     auto_act.register(facility.ps, "auto_active", auto_act.update)
@@ -93,12 +93,12 @@ local function new_view(root, x, y)
 
     main.line_break()
 
-    local auto_scram  = IndicatorLight{parent=main,label="Automatic SCRAM",colors=ind_red,flash=true,period=period.BLINK_250_MS}
-    local matrix_flt  = IndicatorLight{parent=main,label="Induction Matrix Fault",colors=ind_yel,flash=true,period=period.BLINK_500_MS}
-    local matrix_fill = IndicatorLight{parent=main,label="Matrix Charge High",colors=ind_red,flash=true,period=period.BLINK_500_MS}
-    local unit_crit   = IndicatorLight{parent=main,label="Unit Critical Alarm",colors=ind_red,flash=true,period=period.BLINK_250_MS}
-    local fac_rad_h   = IndicatorLight{parent=main,label="Facility Radiation High",colors=ind_red,flash=true,period=period.BLINK_250_MS}
-    local gen_fault   = IndicatorLight{parent=main,label="Gen. Control Fault",colors=ind_yel,flash=true,period=period.BLINK_500_MS}
+    local auto_scram  = IndicatorLight{parent=main,label="SCRAM Autom\xe1tico",colors=ind_red,flash=true,period=period.BLINK_250_MS}
+    local matrix_flt  = IndicatorLight{parent=main,label="Matrix Disconectada",colors=ind_yel,flash=true,period=period.BLINK_500_MS}
+    local matrix_fill = IndicatorLight{parent=main,label="Matrix Carga Alta",colors=ind_red,flash=true,period=period.BLINK_500_MS}
+    local unit_crit   = IndicatorLight{parent=main,label="Alarme Cr\xedtico da Unid.",colors=ind_red,flash=true,period=period.BLINK_250_MS}
+    local fac_rad_h   = IndicatorLight{parent=main,label="Radia\xe7\xe3o Alta na Fac.",colors=ind_red,flash=true,period=period.BLINK_250_MS}
+    local gen_fault   = IndicatorLight{parent=main,label="Falha Controle Gerador",colors=ind_yel,flash=true,period=period.BLINK_500_MS}
 
     auto_scram.register(facility.ps, "auto_scram", auto_scram.update)
     matrix_flt.register(facility.ps, "as_matrix_fault", matrix_flt.update)
@@ -107,11 +107,11 @@ local function new_view(root, x, y)
     fac_rad_h.register(facility.ps, "as_radiation", fac_rad_h.update)
     gen_fault.register(facility.ps, "as_gen_fault", gen_fault.update)
 
-    TextBox{parent=main,y=23,text="Radiation",width=13,fg_bg=style.label}
+    TextBox{parent=main,y=23,text="Radia\xe7\xe3o",width=13,fg_bg=style.label}
     local radiation = RadIndicator{parent=main,label="",format="%9.3f",lu_colors=lu_cpair,width=13,fg_bg=s_field}
     radiation.register(facility.ps, "radiation", radiation.update)
 
-    TextBox{parent=main,x=15,y=23,text="Linked RTUs",width=11,fg_bg=style.label}
+    TextBox{parent=main,x=15,y=23,text="RTUs Vinc.",width=11,fg_bg=style.label}
     local rtu_count = DataIndicator{parent=main,x=15,y=24,label="",format="%11d",value=0,lu_colors=lu_cpair,width=11,fg_bg=s_field}
     rtu_count.register(facility.ps, "rtu_count", rtu_count.update)
 
@@ -128,7 +128,7 @@ local function new_view(root, x, y)
     local targets = Div{parent=proc,width=31,height=24,x=1,y=1}
 
     local burn_tag = Div{parent=targets,x=1,y=1,width=8,height=4,fg_bg=blk_pur}
-    TextBox{parent=burn_tag,x=2,y=2,text="Burn Target",width=7,height=2}
+    TextBox{parent=burn_tag,x=2,y=2,text="Alvo de Queima",width=7,height=2}
 
     local burn_target = Div{parent=targets,x=9,y=1,width=23,height=3,fg_bg=s_hi_box}
     local b_target = NumericSpinbox{parent=burn_target,x=11,y=1,whole_num_precision=4,fractional_precision=1,min=0.1,arrow_fg_bg=arrow_fg_bg,arrow_disable=style.theme.disabled}
@@ -139,7 +139,7 @@ local function new_view(root, x, y)
     burn_sum.register(facility.ps, "burn_sum", burn_sum.update)
 
     local chg_tag = Div{parent=targets,x=1,y=6,width=8,height=4,fg_bg=blk_pur}
-    TextBox{parent=chg_tag,x=2,y=2,text="Charge Target",width=7,height=2}
+    TextBox{parent=chg_tag,x=2,y=2,text="Alvo de Carga",width=7,height=2}
 
     local chg_target = Div{parent=targets,x=9,y=6,width=23,height=3,fg_bg=s_hi_box}
     local c_target = NumericSpinbox{parent=chg_target,x=2,y=1,whole_num_precision=15,fractional_precision=0,min=0,arrow_fg_bg=arrow_fg_bg,arrow_disable=style.theme.disabled}
@@ -150,7 +150,7 @@ local function new_view(root, x, y)
     cur_charge.register(facility.induction_ps_tbl[1], "avg_charge", function (fe) cur_charge.update(db.energy_convert_from_fe(fe) / 1000000) end)
 
     local gen_tag = Div{parent=targets,x=1,y=11,width=8,height=4,fg_bg=blk_pur}
-    TextBox{parent=gen_tag,x=2,y=2,text="Gen. Target",width=7,height=2}
+    TextBox{parent=gen_tag,x=2,y=2,text="Alvo do Gerador",width=7,height=2}
 
     local gen_target = Div{parent=targets,x=9,y=11,width=23,height=3,fg_bg=s_hi_box}
     local g_target = NumericSpinbox{parent=gen_target,x=8,y=1,whole_num_precision=9,fractional_precision=0,min=0,arrow_fg_bg=arrow_fg_bg,arrow_disable=style.theme.disabled}
@@ -227,11 +227,11 @@ local function new_view(root, x, y)
         local _y = ((i - 1) * 5) + 1
 
         local unit_tag = Div{parent=stat_div,x=1,y=_y,width=8,height=4,fg_bg=tag_fg_bg}
-        TextBox{parent=unit_tag,x=2,y=2,text="Unit "..i.." Status",width=7,height=2}
+        TextBox{parent=unit_tag,x=2,y=2,text="Unid. "..i.." Status",width=7,height=2}
 
         local lights   = Div{parent=stat_div,x=9,y=_y,width=14,height=4,fg_bg=ind_fg_bg}
-        local ready    = IndicatorLight{parent=lights,x=2,y=2,label="Ready",colors=cpair(ind_grn.fgd,ind_off)}
-        local degraded = IndicatorLight{parent=lights,x=2,y=3,label="Degraded",colors=cpair(ind_red.fgd,ind_off),flash=true,period=period.BLINK_250_MS}
+        local ready    = IndicatorLight{parent=lights,x=2,y=2,label="Pronto",colors=cpair(ind_grn.fgd,ind_off)}
+        local degraded = IndicatorLight{parent=lights,x=2,y=3,label="Degradado",colors=cpair(ind_red.fgd,ind_off),flash=true,period=period.BLINK_250_MS}
 
         if i <= facility.num_units then
             local unit = units[i]
@@ -245,14 +245,14 @@ local function new_view(root, x, y)
     -- controls and status --
     -------------------------
 
-    local ctl_opts = { "Monitored Max Burn", "Combined Burn Rate", "Charge Level", "Generation Rate" }
+    local ctl_opts = { "Queima M\xe1x. Monit.", "Taxa de Queima Comb.", "N\xedvel de Carga", "Taxa de Gera\xe7\xe3o" }
     local mode = RadioButton{parent=proc,x=34,y=1,options=ctl_opts,callback=function()end,radio_colors=cpair(style.theme.accent_dark,style.theme.accent_light),select_color=colors.purple}
 
     mode.register(facility.ps, "process_mode", mode.set_value)
 
     local u_stat = Rectangle{parent=proc,border=border(1,colors.gray,true),thin=true,width=31,height=4,x=1,y=16,fg_bg=bw_fg_bg}
-    local stat_line_1 = TextBox{parent=u_stat,x=1,y=1,text="UNKNOWN",width=31,alignment=ALIGN.CENTER,fg_bg=bw_fg_bg}
-    local stat_line_2 = TextBox{parent=u_stat,x=1,y=2,text="awaiting data...",width=31,alignment=ALIGN.CENTER,fg_bg=cpair(colors.gray,colors.white)}
+    local stat_line_1 = TextBox{parent=u_stat,x=1,y=1,text="DESCONHECIDO",width=31,alignment=ALIGN.CENTER,fg_bg=bw_fg_bg}
+    local stat_line_2 = TextBox{parent=u_stat,x=1,y=2,text="esperando info...",width=31,alignment=ALIGN.CENTER,fg_bg=cpair(colors.gray,colors.white)}
 
     stat_line_1.register(facility.ps, "status_line_1", stat_line_1.set_value)
     stat_line_2.register(facility.ps, "status_line_2", stat_line_2.set_value)
@@ -274,9 +274,9 @@ local function new_view(root, x, y)
         db.process.process_start()
     end
 
-    local save  = HazardButton{parent=auto_controls,x=2,y=2,text="SAVE",accent=colors.purple,dis_colors=dis_colors,callback=_save_cfg,fg_bg=hzd_fg_bg}
-    local start = HazardButton{parent=auto_controls,x=13,y=2,text="START",accent=colors.lightBlue,dis_colors=dis_colors,callback=_start_auto,fg_bg=hzd_fg_bg}
-    local stop  = HazardButton{parent=auto_controls,x=23,y=2,text="STOP",accent=colors.red,dis_colors=dis_colors,callback=db.process.process_stop,fg_bg=hzd_fg_bg}
+    local save  = HazardButton{parent=auto_controls,x=2,y=2,text="SALVAR",accent=colors.purple,dis_colors=dis_colors,callback=_save_cfg,fg_bg=hzd_fg_bg}
+    local start = HazardButton{parent=auto_controls,x=13,y=2,text="LIGAR",accent=colors.lightBlue,dis_colors=dis_colors,callback=_start_auto,fg_bg=hzd_fg_bg}
+    local stop  = HazardButton{parent=auto_controls,x=23,y=2,text="PARAR",accent=colors.red,dis_colors=dis_colors,callback=db.process.process_stop,fg_bg=hzd_fg_bg}
 
     db.process.fac_ack.on_start = start.on_response
     db.process.fac_ack.on_stop = stop.on_response
@@ -323,7 +323,7 @@ local function new_view(root, x, y)
     for i = 1, facility.num_units do
         local unit = units[i]
 
-        TextBox{parent=waste_status,y=i,text="U"..i.." Waste",width=8}
+        TextBox{parent=waste_status,y=i,text="U"..i.." Res\xedd",width=8}
         local a_waste = IndicatorLight{parent=waste_status,x=10,y=i,label="Auto",colors=ind_wht}
         local waste_m = StateIndicator{parent=waste_status,x=17,y=i,states=style.waste.states_abbrv,value=1,min_width=6}
 
@@ -336,7 +336,7 @@ local function new_view(root, x, y)
     local cutout_fg_bg = cpair(style.theme.bg, colors.brown)
 
     TextBox{parent=waste_sel,text=" ",width=21,x=1,y=1,fg_bg=cutout_fg_bg}
-    TextBox{parent=waste_sel,text="WASTE PRODUCTION",alignment=ALIGN.CENTER,width=21,x=1,y=2,fg_bg=cutout_fg_bg}
+    TextBox{parent=waste_sel,text="PRODU\xc7\xc3O DE RES\xcdDUO",alignment=ALIGN.CENTER,width=21,x=1,y=2,fg_bg=cutout_fg_bg}
 
     local rect   = Rectangle{parent=waste_sel,border=border(1,colors.brown,true),width=21,height=22,x=1,y=3}
     local status = StateIndicator{parent=rect,x=2,y=1,states=style.waste.states,value=1,min_width=17}
@@ -347,19 +347,19 @@ local function new_view(root, x, y)
 
     waste_prod.register(facility.ps, "process_waste_product", waste_prod.set_value)
 
-    local fb_active = IndicatorLight{parent=rect,x=2,y=7,label="Fallback Active",colors=ind_wht}
-    local sps_disabled  = IndicatorLight{parent=rect,x=2,y=8,label="SPS Disabled LC",colors=ind_yel}
+    local fb_active = IndicatorLight{parent=rect,x=2,y=7,label="Fallback Ativo",colors=ind_wht}
+    local sps_disabled  = IndicatorLight{parent=rect,x=2,y=8,label="SPS Disativou LC",colors=ind_yel}
 
     fb_active.register(facility.ps, "pu_fallback_active", fb_active.update)
     sps_disabled.register(facility.ps, "sps_disabled_low_power", sps_disabled.update)
 
-    local pu_fallback = Checkbox{parent=rect,x=2,y=10,label="Pu Fallback",callback=process.set_pu_fallback,box_fg_bg=cpair(colors.brown,style.theme.checkbox_bg)}
+    local pu_fallback = Checkbox{parent=rect,x=2,y=10,label="Fallback de Pu",callback=process.set_pu_fallback,box_fg_bg=cpair(colors.brown,style.theme.checkbox_bg)}
 
-    TextBox{parent=rect,x=2,y=12,height=3,text="Switch to Pu when SNAs cannot keep up with waste.",fg_bg=style.label}
+    TextBox{parent=rect,x=2,y=12,height=3,text="Usar SPS com baixa carga, sen\xe3o, trocar para Po.",fg_bg=style.label}
 
-    local lc_sps = Checkbox{parent=rect,x=2,y=16,label="Low Charge SPS",callback=process.set_sps_low_power,box_fg_bg=cpair(colors.brown,style.theme.checkbox_bg)}
+    local lc_sps = Checkbox{parent=rect,x=2,y=16,label="SPS Carga Baixa",callback=process.set_sps_low_power,box_fg_bg=cpair(colors.brown,style.theme.checkbox_bg)}
 
-    TextBox{parent=rect,x=2,y=18,height=3,text="Use SPS at low charge, otherwise switches to Po.",fg_bg=style.label}
+    TextBox{parent=rect,x=2,y=18,height=3,text="Trocar p. Pu qnd os SNAs n\xe3o puder lidar com res\xedd.",fg_bg=style.label}
 
     pu_fallback.register(facility.ps, "process_pu_fallback", pu_fallback.set_value)
     lc_sps.register(facility.ps, "process_sps_low_power", lc_sps.set_value)
