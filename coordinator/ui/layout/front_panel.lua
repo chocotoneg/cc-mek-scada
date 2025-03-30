@@ -104,7 +104,7 @@ local function init(panel, num_units)
 
     system.line_break()
 
-    local rt_main = LED{parent=system,label="RT MAIN",colors=led_grn}
+    local rt_main = LED{parent=system,label="RT PRINC",colors=led_grn}
     local rt_render = LED{parent=system,label="RT RENDER",colors=led_grn}
 
     rt_main.register(ps, "routine__main", rt_main.update)
@@ -116,16 +116,16 @@ local function init(panel, num_units)
 
     local monitors = Div{parent=main_page,width=16,height=17,x=18,y=2}
 
-    local main_monitor = LED{parent=monitors,label="MAIN MONITOR",colors=led_grn}
+    local main_monitor = LED{parent=monitors,label="MONITOR PRINC.",colors=led_grn}
     main_monitor.register(ps, "main_monitor", main_monitor.update)
 
-    local flow_monitor = LED{parent=monitors,label="FLOW MONITOR",colors=led_grn}
+    local flow_monitor = LED{parent=monitors,label="MONITOR FLUXO",colors=led_grn}
     flow_monitor.register(ps, "flow_monitor", flow_monitor.update)
 
     monitors.line_break()
 
     for i = 1, num_units do
-        local unit_monitor = LED{parent=monitors,label="UNIT "..i.." MONITOR",colors=led_grn}
+        local unit_monitor = LED{parent=monitors,label="MONITOR UNID."..i.."",colors=led_grn}
         unit_monitor.register(ps, "unit_monitor_" .. i, unit_monitor.update)
     end
 
