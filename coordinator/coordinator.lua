@@ -345,7 +345,7 @@ function coordinator.comms(version, nic, sv_watchdog)
                     elseif self.last_est_ack == ESTABLISH_ACK.COLLISION then
                         coordinator.log_comms("conex\xe3o com supervisor falha por colis\xe3o")
                     elseif self.last_est_ack == ESTABLISH_ACK.BAD_VERSION then
-                        coordinator.log_comms("conex\xe3o com supervisor falha por vers\xe3o incompatível")
+                        coordinator.log_comms("conex\xe3o com supervisor falha por vers\xe3o incompat\xedvel")
                     else
                         coordinator.log_comms("conex\xe3o com supervisor falha por n\xe3o ter resposta valida")
                     end
