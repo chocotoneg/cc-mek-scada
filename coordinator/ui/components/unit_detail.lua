@@ -268,11 +268,11 @@ local function init(parent, id)
         if available_space > 0 then _add_space() end
 
         TextBox{parent=rcs_tags,x=1,text="B1",width=2,fg_bg=hc_text}
-        local b1_wll = IndicatorLight{parent=rcs_annunc,label="Water Level Low",colors=ind_red}
+        local b1_wll = IndicatorLight{parent=rcs_annunc,label="N\xedvel de \xc1gua Baixo",colors=ind_red}
         b1_wll.register(b_ps[1], "WaterLevelLow", b1_wll.update)
 
         TextBox{parent=rcs_tags,text="B1",width=2,fg_bg=hc_text}
-        local b1_hr = IndicatorLight{parent=rcs_annunc,label="Heating Rate Low",colors=ind_yel}
+        local b1_hr = IndicatorLight{parent=rcs_annunc,label="Taxa de Aquecimento Baixa",colors=ind_yel}
         b1_hr.register(b_ps[1], "HeatingRateLow", b1_hr.update)
     end
     if unit.num_boilers > 1 then
@@ -284,11 +284,11 @@ local function init(parent, id)
         end
 
         TextBox{parent=rcs_tags,text="B2",width=2,fg_bg=hc_text}
-        local b2_wll = IndicatorLight{parent=rcs_annunc,label="Water Level Low",colors=ind_red}
+        local b2_wll = IndicatorLight{parent=rcs_annunc,label="N\xedvel de \xc1gua Baixo",colors=ind_red}
         b2_wll.register(b_ps[2], "WaterLevelLow", b2_wll.update)
 
         TextBox{parent=rcs_tags,text="B2",width=2,fg_bg=hc_text}
-        local b2_hr = IndicatorLight{parent=rcs_annunc,label="Heating Rate Low",colors=ind_yel}
+        local b2_hr = IndicatorLight{parent=rcs_annunc,label="Taxa de Aquecimento Baixa",colors=ind_yel}
         b2_hr.register(b_ps[2], "HeatingRateLow", b2_hr.update)
     end
 
