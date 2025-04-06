@@ -44,7 +44,7 @@ function threads.thread__main(smem)
     -- execute thread
     function public.exec()
         iocontrol.fp_rt_status("main", true)
-        log.debug("main thread start")
+        log.debug("iniciando thread principal")
 
         local loop_clock = util.new_clock(MAIN_CLOCK)
 
@@ -90,7 +90,7 @@ function threads.thread__main(smem)
                                 iocontrol.fp_has_modem(false)
                             end
                         else
-                            log_sys("modems regular disconectados")
+                            log_sys("modems regulares disconectados")
                         end
                     elseif type == "monitor" then
                         ---@cast device Monitor
