@@ -640,7 +640,7 @@ function logic.update_auto_safety(public, self)
         for _, alarm in pairs(self.alarms) do
             if alarm.tier <= PRIO.URGENT and (alarm.state == AISTATE.TRIPPED or alarm.state == AISTATE.ACKED) then
                 if not self.auto_was_alarmed then
-                    log.info(util.c("UNIT ", self.r_id, " AUTO SCRAM due to ALARM ", alarm.id, " (", types.ALARM_NAMES[alarm.id], ") [PRIORITY ",
+                    log.info(util.c("UNID ", self.r_id, " SCRAM AUTO por causa do ALARME ", alarm.id, " (", types.ALARM_NAMES[alarm.id], ") [PRIORIDADE ",
                         types.ALARM_PRIORITY_NAMES[alarm.tier],"]"))
                 end
 
@@ -677,21 +677,21 @@ function logic.update_status_text(self)
     if is_active(self.alarms.ContainmentBreach) then
         -- boom? or was boom disabled
         if self.plc_i ~= nil and self.plc_i.get_rps().force_dis then
-            self.status_text = { "REACTOR FORCE DISABLED", "meltdown would have occurred" }
+            self.status_text = { "REATOR DESLIGADO", "o derretimento teria ocorrido" }
         else
-            self.status_text = { "CORE MELTDOWN", "reactor destroyed" }
+            self.status_text = { "DERRETIMENTO IMINENTE", "evacue instala\xe7\xe3o imediatamente" }
         end
     elseif is_active(self.alarms.CriticalDamage) then
         -- so much for it being a "routine turbin' trip"...
         self.status_text = { "MELTDOWN IMMINENT", "evacuate facility immediately" }
     elseif is_active(self.alarms.ReactorDamage) then
         -- attempt to determine when a chance of a meltdown will occur
-        self.status_text[1] = "CONTAINMENT TAKING DAMAGE"
+        self.status_text[1] = "CONTEN\xc7\xc3O SOFRENDO DANO"
         if self.plc_cache.damage >= 100 then
-            self.status_text[2] = "damage critical"
+            self.status_text[2] = "dano cr\xedtico"
         elseif (self.plc_cache.damage < self.damage_last) or ((self.plc_cache.damage - self.damage_initial) < 0) then
             self.damage_decreasing = true
-            self.status_text = { "CONTAINMENT TOOK DAMAGE", "damage level lowering..." }
+            self.status_text = { "CONTEN\xc7\xc3O DANIFICADA", "danifica\xe7\xe3o abaixando..." }
 
             -- reset damage estimation data in case it goes back up again
             self.damage_initial = self.plc_cache.damage
@@ -706,120 +706,120 @@ function logic.update_status_text(self)
                     self.damage_est_last = (100 - self.plc_cache.damage) / rate
                 end
 
-                self.status_text[2] = util.c("damage critical in ", util.sprintf("%.1f", self.damage_est_last), "s")
+                self.status_text[2] = util.c("dano cr\xedtico em ", util.sprintf("%.1f", self.damage_est_last), "s")
             else
-                self.status_text[2] = "estimating time to critical..."
+                self.status_text[2] = "estimando tempo para cr\xedtico..."
             end
         else
-            self.status_text = { "CONTAINMENT TOOK DAMAGE", "damage level lowering..." }
+            self.status_text = { "CONTEN\xc7\xc3O DANIFICADA", "danifica\xe7\xe3o abaixando..." }
         end
 
         self.damage_last = self.plc_cache.damage
     elseif is_active(self.alarms.ContainmentRadiation) then
-        self.status_text[1] = "RADIATION DETECTED"
+        self.status_text[1] = "RADIA\xc7\xc3OO DETECTADA"
 
         if self.last_radiation >= const.EXTREME_RADIATION then
-            self.status_text[2] = "extremely high radiation level"
+            self.status_text[2] = "n\xedvel de radia\xe7\xe3o extremo"
         elseif self.last_radiation >= const.SEVERE_RADIATION then
-            self.status_text[2] = "severely high radiation level"
+            self.status_text[2] = "n\xedvel de radia\xe7\xe3o severo"
         elseif self.last_radiation >= const.VERY_HIGH_RADIATION then
-            self.status_text[2] = "very high level of radiation"
+            self.status_text[2] = "n\xedvel muito alto de radia\xe7\xe3o"
         elseif self.last_radiation >= const.HIGH_RADIATION then
-            self.status_text[2] = "high level of radiation"
+            self.status_text[2] = "n\xedvel alto de radia\xe7\xe3o"
         elseif self.last_radiation >= const.HAZARD_RADIATION then
-            self.status_text[2] = "hazardous level of radiation"
+            self.status_text[2] = "n\xedvel perigoso de radia\xe7\xe3o"
         else
-            self.status_text[2] = "elevated level of radiation"
+            self.status_text[2] = "n\xedvel elevado de radia\xe7\xe3o"
         end
     elseif is_active(self.alarms.ReactorOverTemp) then
-        self.status_text = { "CORE OVER TEMP", "reactor core temp damaging" }
+        self.status_text = { "N\xdaCLEO SOBR. AQUECIDO", "a temp. do reator \xe9 danificante" }
     elseif is_active(self.alarms.ReactorWasteLeak) then
-        self.status_text = { "WASTE LEAK", "radioactive waste leak detected" }
+        self.status_text = { "WASTE LEAK", "vazamento de res\xedduo" }
     elseif is_active(self.alarms.ReactorHighTemp) then
-        self.status_text = { "CORE TEMP HIGH", "reactor core temperature high" }
+        self.status_text = { "TEMP. DO N\xdaCLEO ALTA", "temperatura do n\xfacleo alta" }
     elseif is_active(self.alarms.ReactorHighWaste) then
-        self.status_text = { "WASTE LEVEL HIGH", "waste accumulating in reactor" }
+        self.status_text = { "N\xcdVEL DE RESÍDUOS ALTO", "res\xedduo acumulando no reator" }
     elseif is_active(self.alarms.TurbineTrip) then
-        self.status_text = { "TURBINE TRIP", "turbine stall occurred" }
+        self.status_text = { "DESARME DA TURBINA", "ocorreu uma falha na turbina" }
     elseif is_active(self.alarms.RCSTransient) then
-        self.status_text = { "RCS TRANSIENT", "check coolant system" }
+        self.status_text = { "RCS TRANSIENTE", "cheque o sistema de refrig." }
     -- elseif is_active(self.alarms.RPSTransient) then
         -- RPS status handled when checking reactor status
     elseif self.em_cool_opened then
-        self.status_text = { "EMERGENCY COOLANT OPENED", "reset RPS to close valve" }
+        self.status_text = { "REFRIG. DE EMERG\xcaNCIA ABERTO", "resete o RPS p/ fechar v\xe1lvula" }
     -- connection dependent states
     elseif self.plc_i ~= nil then
         local plc_db = self.plc_i.get_db()
         if plc_db.mek_status.status then
-            self.status_text[1] = "ACTIVE"
+            self.status_text[1] = "ATIVO"
 
             if annunc.ReactorHighDeltaT then
-                self.status_text[2] = "core temperature rising"
+                self.status_text[2] = "temperatura do n\xfacleo aumentando"
             elseif annunc.ReactorTempHigh then
-                self.status_text[2] = "core temp high, system nominal"
+                self.status_text[2] = "temp. do n\xfacleo alta"
             elseif annunc.FuelInputRateLow then
-                self.status_text[2] = "insufficient fuel input rate"
+                self.status_text[2] = "entrd. de combust. insuficiente"
             elseif annunc.WasteLineOcclusion then
-                self.status_text[2] = "insufficient waste output rate"
+                self.status_text[2] = "sa\xedda de res\xedduos insuficiente"
             elseif (util.time_ms() - self.last_rate_change_ms) <= FLOW_STABILITY_DELAY_MS then
-                self.status_text[2] = "awaiting coolant flow stability"
+                self.status_text[2] = "esperando a refrig. estabilizar"
             elseif not self.turbine_flow_stable then
-                self.status_text[2] = "awaiting turbine flow stability"
+                self.status_text[2] = "esperando a turbina estabilizar"
             else
-                self.status_text[2] = "system nominal"
+                self.status_text[2] = "sistema nominal"
             end
         elseif plc_db.rps_tripped then
-            local cause = "unknown"
+            local cause = "desconhecido"
 
             if plc_db.rps_trip_cause == RPS_TRIP_CAUSE.OK then
                 -- hmm...
             elseif plc_db.rps_trip_cause == RPS_TRIP_CAUSE.HIGH_DMG then
-                cause = "core damage high"
+                cause = "danifica\xe7\xe3o no n\xfacleo alto"
             elseif plc_db.rps_trip_cause == RPS_TRIP_CAUSE.HIGH_TEMP then
-                cause = "core temperature high"
+                cause = "temperatura do n\xfacleo alta"
             elseif plc_db.rps_trip_cause == RPS_TRIP_CAUSE.LOW_COOLANT then
-                cause = "insufficient coolant"
+                cause = "refrigera\xe7\xe3o insuficiente"
             elseif plc_db.rps_trip_cause == RPS_TRIP_CAUSE.EX_WASTE then
-                cause = "excess waste"
+                cause = "excesso res\xedduo"
             elseif plc_db.rps_trip_cause == RPS_TRIP_CAUSE.EX_HCOOLANT then
-                cause = "excess heated coolant"
+                cause = "excesso de refrigerador quente"
             elseif plc_db.rps_trip_cause == RPS_TRIP_CAUSE.NO_FUEL then
-                cause = "insufficient fuel"
+                cause = "falta de combust\xedvel"
             elseif plc_db.rps_trip_cause == RPS_TRIP_CAUSE.FAULT then
-                cause = "hardware fault"
+                cause = "falha de hardware"
             elseif plc_db.rps_trip_cause == RPS_TRIP_CAUSE.TIMEOUT then
-                cause = "connection timed out"
+                cause = "conex\xe3o expirada"
             elseif plc_db.rps_trip_cause == RPS_TRIP_CAUSE.MANUAL then
-                cause = "manual operator SCRAM"
+                cause = "SCRAM manual do operador"
             elseif plc_db.rps_trip_cause == RPS_TRIP_CAUSE.AUTOMATIC then
-                cause = "automated system SCRAM"
+                cause = "SCRAM auto. do sistema"
             elseif plc_db.rps_trip_cause == RPS_TRIP_CAUSE.SYS_FAIL then
-                cause = "PLC system failure"
+                cause = "falha no sistema PLC"
             elseif plc_db.rps_trip_cause == RPS_TRIP_CAUSE.FORCE_DISABLED then
-                cause = "reactor force disabled"
+                cause = "reator desativado a for\xe7a"
             end
 
-            self.status_text = { "RPS SCRAM", cause }
+            self.status_text = { "SCRAM RPS", cause }
         elseif annunc.RadiationWarning then
             -- elevated, non-hazardous level of radiation is low priority, so display it now if everything else was fine
-            self.status_text = { "RADIATION DETECTED", "elevated level of radiation" }
+            self.status_text = { "RADIA\xc7\xc3OO DETECTADA", "n\xedveis de radia\xe7\xe3o elevada" }
         else
-            self.status_text[1] = "IDLE"
+            self.status_text[1] = "OCIOSO"
 
             local temp = plc_db.mek_status.temp
             if temp < 350 then
-                self.status_text[2] = "core cold"
+                self.status_text[2] = "n\xfacleo gelado"
             elseif temp < 600 then
-                self.status_text[2] = "core warm"
+                self.status_text[2] = "n\xfacleo morno"
             else
-                self.status_text[2] = "core hot"
+                self.status_text[2] = "n\xfacleo quente"
             end
         end
     elseif annunc.RadiationWarning then
         -- in case PLC was disconnected but radiation is present
-        self.status_text = { "RADIATION DETECTED", "elevated level of radiation" }
+        self.status_text = { "RADIA\xc7\xc3OO DETECTADA", "n\xedveis de radia\xe7\xe3o elevada" }
     else
-        self.status_text = { "REACTOR OFF-LINE", "awaiting connection..." }
+        self.status_text = { "REATOR OFF-LINE", "esperando conex\xe7\xe3o..." }
     end
 end
 
