@@ -1,16 +1,19 @@
+# ⚠ Disclaimer!
+Está versão do cc-mek-scada é uma versão não-oficial mantida pela comunidade! 
+
 # cc-mek-scada
-Configurable ComputerCraft SCADA system for multi-reactor control of Mekanism fission reactors with a GUI, automatic safety features, waste processing control, and more! 
+Sistema SCADA para ComputerCraft configurável para controle de múltiplos reatores de fissão do Mekanism com uma interface gráfica de usuário (GUI), recursos de segurança automáticos, controle de processamento de resíduos e muito mais!
 
 ![GitHub](https://img.shields.io/github/license/MikaylaFischler/cc-mek-scada)
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/MikaylaFischler/cc-mek-scada?include_prereleases)
 ![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/MikaylaFischler/cc-mek-scada/check.yml?branch=main&label=main)
 ![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/MikaylaFischler/cc-mek-scada/check.yml?branch=devel&label=devel)
 
-### Join [the Discord](https://discord.gg/R9NSCkhcwt)!
+### Entre [no Discord](https://discord.gg/R9NSCkhcwt)! (en-us, não pt-br!)
 
 ![Discord](https://img.shields.io/discord/1129075839288496259?logo=Discord&logoColor=white&label=discord)
 
-## Released Component Versions
+## Versões de Componentes Disponiveis
 
 ![Installer](https://img.shields.io/endpoint?url=https%3A%2F%2Fmikaylafischler.github.io%2Fcc-mek-scada%2Finstaller.json)
 
@@ -28,26 +31,26 @@ Configurable ComputerCraft SCADA system for multi-reactor control of Mekanism fi
 ![Coordinator](https://img.shields.io/endpoint?url=https%3A%2F%2Fmikaylafischler.github.io%2Fcc-mek-scada%2Fcoordinator.json)
 ![Pocket](https://img.shields.io/endpoint?url=https%3A%2F%2Fmikaylafischler.github.io%2Fcc-mek-scada%2Fpocket.json)
 
-## Requirements
+## Requisitos
 
-Mod Requirements:
+Requisitos de Mods:
 - CC: Tweaked
 - Mekanism v10.1+
 
-Mod Recommendations:
-- Advanced Peripherals (adds the capability to detect environmental radiation levels)
-- Immersive Engineering (provides bundled redstone, though any mod containing bundled redstone will do)
+Recomendações de Mods:
+- Advanced Peripherals (adiciona a capacidade de ler o nível radiação do ambiente)
+- Immersive Engineering (providencia redstone empacotado, porem qualquer mod com redstone empacotado serve)
 
-v10.1+ is required due to the complete support of CC:Tweaked added in Mekanism v10.1
+v10.1+ é preciso pois adiciona suporte completo do CC:Tweaked na versão v10.1 do Mekanism
 
-## Installation
+## Instalação (Apenas off-line é suportado!)
 
 You can install this on a ComputerCraft computer using either:
 * `wget https://raw.githubusercontent.com/MikaylaFischler/cc-mek-scada/main/ccmsi.lua`
 * `pastebin get sqUN6VUb ccmsi.lua`
 * Off-line (when HTTP is disabled) installation via [release bundles](https://github.com/MikaylaFischler/cc-mek-scada/wiki/Alternative-Installation-Strategies#release-bundles)
 
-## Contributing
+## Contributição
 
 Please reach out to me via Discord or email (or GitHub in some way) if you are thinking of making any contributions at this time. I started this project as a challenge for myself and have been enjoying having something I can work on in my own way. 
 
