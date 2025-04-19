@@ -1,5 +1,5 @@
 # ⚠ Disclaimer!
-Está versão do cc-mek-scada é uma versão não-oficial mantida pela comunidade! 
+Está versão do cc-mek-scada é uma versão (apenas traduzida) não-oficial mantida atualmente apenas por mim! 
 
 # cc-mek-scada
 Sistema SCADA para ComputerCraft configurável para controle de múltiplos reatores de fissão do Mekanism com uma interface gráfica de usuário (GUI), recursos de segurança automáticos, controle de processamento de resíduos e muito mais!
