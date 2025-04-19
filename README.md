@@ -9,7 +9,7 @@ Sistema SCADA para ComputerCraft configurável para controle de múltiplos reato
 ![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/MikaylaFischler/cc-mek-scada/check.yml?branch=main&label=main)
 ![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/MikaylaFischler/cc-mek-scada/check.yml?branch=devel&label=devel)
 
-### Entre [no Discord](https://discord.gg/R9NSCkhcwt)! (Servidor em inglês!)
+### Entre no [Discord](https://discord.gg/R9NSCkhcwt)! (Servidor em inglês!)
 
 ![Discord](https://img.shields.io/discord/1129075839288496259?logo=Discord&logoColor=white&label=discord)
 
@@ -46,8 +46,8 @@ v10.1+ é preciso pois adiciona suporte completo do CC:Tweaked na versão v10.1 
 ## Instalação (Apenas off-line é suportado!)
 
 You can install this on a ComputerCraft computer using either:
-* `wget https://raw.githubusercontent.com/MikaylaFischler/cc-mek-scada/main/ccmsi.lua`
-* `pastebin get sqUN6VUb ccmsi.lua`
+* `wget https://raw.githubusercontent.com/MikaylaFischler/cc-mek-scada/main/ccmsi.lua` (não suportado)
+* `pastebin get sqUN6VUb ccmsi.lua` (não suportado)
 * Off-line (when HTTP is disabled) installation via [release bundles](https://github.com/MikaylaFischler/cc-mek-scada/wiki/Alternative-Installation-Strategies#release-bundles)
 
 ## Contributição
