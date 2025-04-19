@@ -9,7 +9,7 @@ Sistema SCADA para ComputerCraft configurável para controle de múltiplos reato
 ![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/MikaylaFischler/cc-mek-scada/check.yml?branch=main&label=main)
 ![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/MikaylaFischler/cc-mek-scada/check.yml?branch=devel&label=devel)
 
-### Entre [no Discord](https://discord.gg/R9NSCkhcwt)! (en-us, não pt-br!)
+### Entre [no Discord](https://discord.gg/R9NSCkhcwt)! (en-us 🇺🇸, não pt-br!)
 
 ![Discord](https://img.shields.io/discord/1129075839288496259?logo=Discord&logoColor=white&label=discord)
 
