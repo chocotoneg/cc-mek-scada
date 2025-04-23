@@ -172,8 +172,8 @@ local function init(parent, id)
     annunciator.line_break()
 
     -- operating state
-    local r_active = IndicatorLight{parent=annunciator,label="Active",colors=ind_grn}
-    local r_auto   = IndicatorLight{parent=annunciator,label="Automatic Control",colors=ind_wht}
+    local r_active = IndicatorLight{parent=annunciator,label="Ativo",colors=ind_grn}
+    local r_auto   = IndicatorLight{parent=annunciator,label="Controle Autom\xe1tico",colors=ind_wht}
 
     r_active.register(u_ps, "status", r_active.update)
     r_auto.register(u_ps, "AutoControl", r_auto.update)
