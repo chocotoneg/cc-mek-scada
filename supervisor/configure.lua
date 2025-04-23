@@ -112,31 +112,31 @@ local settings_cfg = {}
 
 -- all settings fields, their nice names, and their default values
 local fields = {
-    { "UnitCount", "Number of Reactors", 1 },
-    { "CoolingConfig", "Cooling Configuration", {} },
-    { "FacilityTankMode", "Facility Tank Mode", 0 },
-    { "FacilityTankDefs", "Facility Tank Definitions", {} },
-    { "FacilityTankList", "Facility Tank List", {} },         -- hidden
-    { "FacilityTankConns", "Facility Tank Connections", {} }, -- hidden
-    { "TankFluidTypes", "Tank Fluid Types", {} },
-    { "AuxiliaryCoolant", "Auxiliary Water Coolant", {} },
+    { "UnitCount", "N\xb0 de Reatores", 1 },
+    { "CoolingConfig", "Config. de Refrigera\xe7\xe3o", {} },
+    { "FacilityTankMode", "Modo de Tanque", 0 },
+    { "FacilityTankDefs", "Defini\xe7\xe3o de Tanques", {} },
+    { "FacilityTankList", "Lista de Tanques", {} },         -- hidden
+    { "FacilityTankConns", "Conex\xe3o de Tanquess", {} }, -- hidden
+    { "TankFluidTypes", "Tipos de Fluido do Tanque", {} },
+    { "AuxiliaryCoolant", "Refrig. de \xc1gua Aux.", {} },
     { "ExtChargeIdling", "Extended Charge Idling", false },
-    { "SVR_Channel", "SVR Channel", 16240 },
-    { "PLC_Channel", "PLC Channel", 16241 },
-    { "RTU_Channel", "RTU Channel", 16242 },
-    { "CRD_Channel", "CRD Channel", 16243 },
-    { "PKT_Channel", "PKT Channel", 16244 },
-    { "PLC_Timeout", "PLC Connection Timeout", 5 },
-    { "RTU_Timeout", "RTU Connection Timeout", 5 },
-    { "CRD_Timeout", "CRD Connection Timeout", 5 },
-    { "PKT_Timeout", "PKT Connection Timeout", 5 },
-    { "TrustedRange", "Trusted Range", 0 },
-    { "AuthKey", "Facility Auth Key" , ""},
-    { "LogMode", "Log Mode", log.MODE.APPEND },
-    { "LogPath", "Log Path", "/log.txt" },
-    { "LogDebug", "Log Debug Messages", false },
-    { "FrontPanelTheme", "Front Panel Theme", themes.FP_THEME.SANDSTONE },
-    { "ColorMode", "Color Mode", themes.COLOR_MODE.STANDARD }
+    { "SVR_Channel", "Canal do SVR", 16240 },
+    { "PLC_Channel", "Canal do PLC", 16241 },
+    { "RTU_Channel", "Canal do RTU", 16242 },
+    { "CRD_Channel", "Canal do CRD", 16243 },
+    { "PKT_Channel", "Canal do PKT", 16244 },
+    { "PLC_Timeout", "Tempo Limite de Conex\xe3o do PLC", 5 },
+    { "RTU_Timeout", "Tempo Limite de Conex\xe3o do RTU", 5 },
+    { "CRD_Timeout", "Tempo Limite de Conex\xe3o do CRD", 5 },
+    { "PKT_Timeout", "Tempo Limite de Conex\xe3o do PKT", 5 },
+    { "TrustedRange", "Alcance de Confian\xe7a", 0 },
+    { "AuthKey", "Chave de Auten. da Instala\xe7\xe3o" , ""},
+    { "LogMode", "Modo do Registro", log.MODE.APPEND },
+    { "LogPath", "Caminho do Registro", "/log.txt" },
+    { "LogDebug", "Registrar Mensagens de Depura\xe7\xe3o", false },
+    { "FrontPanelTheme", "Tema do Painel Frontal", themes.FP_THEME.SANDSTONE },
+    { "ColorMode", "Modo de Cor", themes.COLOR_MODE.STANDARD }
 }
 
 -- load data from the settings file
@@ -164,7 +164,7 @@ local function config_view(display)
 ---@diagnostic disable-next-line: undefined-field
     local function exit() os.queueEvent("terminate") end
 
-    TextBox{parent=display,y=1,text="Supervisor Configurator",alignment=CENTER,fg_bg=style.header}
+    TextBox{parent=display,y=1,text="Configurador do Supervisor",alignment=CENTER,fg_bg=style.header}
 
     local root_pane_div = Div{parent=display,x=1,y=2}
 
@@ -183,10 +183,10 @@ local function config_view(display)
 
     local y_start = 5
 
-    TextBox{parent=main_page,x=2,y=2,height=2,text="Welcome to the Supervisor configurator! Please select one of the following options."}
+    TextBox{parent=main_page,x=2,y=2,height=2,text="Bem-vindo ao configurador do Supervisor! Por favor, selecione uma das op\xe7\xf5es a seguir."}
 
     if tool_ctl.ask_config then
-        TextBox{parent=main_page,x=2,y=y_start,height=4,width=49,text="Notice: This device is not configured for this version of the supervisor. If you previously had a valid config, it's not lost. You may want to check the Change Log to see what changed.",fg_bg=cpair(colors.red,colors.lightGray)}
+        TextBox{parent=main_page,x=2,y=y_start,height=4,width=49,text="Aviso: Este dispositivo n\xe3o foi configurado para esta vers\xe3o do supervisor. Se voc\xea tinha uma configura\xe7\xe3o anteriormente, olhe o Registro de Altera\xe7\xf5es para ver o que mudou.",fg_bg=cpair(colors.red,colors.lightGray)}
         y_start = y_start + 5
     end
 
@@ -198,12 +198,12 @@ local function config_view(display)
     end
 
     if fs.exists("/supervisor/config.lua") then
-        PushButton{parent=main_page,x=2,y=y_start,min_width=28,text="Import Legacy 'config.lua'",callback=function()tool_ctl.load_legacy()end,fg_bg=cpair(colors.black,colors.cyan),active_fg_bg=btn_act_fg_bg}
+        PushButton{parent=main_page,x=2,y=y_start,min_width=28,text="Importar 'config.lua' Antigo",callback=function()tool_ctl.load_legacy()end,fg_bg=cpair(colors.black,colors.cyan),active_fg_bg=btn_act_fg_bg}
         y_start = y_start + 2
     end
 
-    PushButton{parent=main_page,x=2,y=y_start,min_width=18,text="Configure System",callback=function()main_pane.set_value(2)end,fg_bg=cpair(colors.black,colors.blue),active_fg_bg=btn_act_fg_bg}
-    tool_ctl.view_cfg = PushButton{parent=main_page,x=2,y=y_start+2,min_width=20,text="View Configuration",callback=view_config,fg_bg=cpair(colors.black,colors.blue),active_fg_bg=btn_act_fg_bg,dis_fg_bg=btn_dis_fg_bg}
+    PushButton{parent=main_page,x=2,y=y_start,min_width=20,text="Configurar Sistema",callback=function()main_pane.set_value(2)end,fg_bg=cpair(colors.black,colors.blue),active_fg_bg=btn_act_fg_bg}
+    tool_ctl.view_cfg = PushButton{parent=main_page,x=2,y=y_start+2,min_width=20,text="Ver Configura\xe7\xe3o",callback=view_config,fg_bg=cpair(colors.black,colors.blue),active_fg_bg=btn_act_fg_bg,dis_fg_bg=btn_dis_fg_bg}
 
     local function jump_color()
         tool_ctl.jumped_to_color = true
@@ -217,10 +217,10 @@ local function config_view(display)
         exit()
     end
 
-    PushButton{parent=main_page,x=2,y=17,min_width=6,text="Exit",callback=exit,fg_bg=cpair(colors.black,colors.red),active_fg_bg=btn_act_fg_bg}
-    local start_btn = PushButton{parent=main_page,x=42,y=17,min_width=9,text="Startup",callback=startup,fg_bg=cpair(colors.black,colors.green),active_fg_bg=btn_act_fg_bg,dis_fg_bg=btn_dis_fg_bg}
-    tool_ctl.color_cfg = PushButton{parent=main_page,x=36,y=y_start,min_width=15,text="Color Options",callback=jump_color,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg,dis_fg_bg=btn_dis_fg_bg}
-    PushButton{parent=main_page,x=39,y=y_start+2,min_width=12,text="Change Log",callback=function()main_pane.set_value(7)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=main_page,x=2,y=17,min_width=6,text="Sair",callback=exit,fg_bg=cpair(colors.black,colors.red),active_fg_bg=btn_act_fg_bg}
+    local start_btn = PushButton{parent=main_page,x=42,y=17,min_width=9,text="Inicializa\xe7\xe3o",callback=startup,fg_bg=cpair(colors.black,colors.green),active_fg_bg=btn_act_fg_bg,dis_fg_bg=btn_dis_fg_bg}
+    tool_ctl.color_cfg = PushButton{parent=main_page,x=36,y=y_start,min_width=15,text="Op\xe7\xf5es de Cor",callback=jump_color,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg,dis_fg_bg=btn_dis_fg_bg}
+    PushButton{parent=main_page,x=39,y=y_start+2,min_width=12,text="Change-Log",callback=function()main_pane.set_value(7)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
 
     if tool_ctl.ask_config then start_btn.disable() end
 
@@ -264,7 +264,7 @@ local function config_view(display)
         end
     end
 
-    PushButton{parent=cl,x=1,y=14,text="\x1b Back",callback=function()main_pane.set_value(1)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=cl,x=1,y=14,text="\x1bVoltar",callback=function()main_pane.set_value(1)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
 
     --#endregion
 end

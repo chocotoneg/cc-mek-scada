@@ -683,7 +683,7 @@ function logic.update_status_text(self)
         end
     elseif is_active(self.alarms.CriticalDamage) then
         -- so much for it being a "routine turbin' trip"...
-        self.status_text = { "MELTDOWN IMMINENT", "evacuate facility immediately" }
+        self.status_text = { "DERRETIMENTO IMINENTE", "evacue instala\xe7\xe3o imediatamente" }
     elseif is_active(self.alarms.ReactorDamage) then
         -- attempt to determine when a chance of a meltdown will occur
         self.status_text[1] = "CONTEN\xc7\xc3O SOFRENDO DANO"

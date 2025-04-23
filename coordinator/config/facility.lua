@@ -67,7 +67,7 @@ local function handle_packet(packet)
     local error_msg = nil
 
     if packet.scada_frame.local_channel() ~= self.tmp_cfg.CRD_Channel then
-        error_msg = "Error: unknown receive channel."
+        error_msg = "Error: canal de recep\xe7\xe3o desconhecido."
     elseif packet.scada_frame.remote_channel() == self.tmp_cfg.SVR_Channel and packet.scada_frame.protocol() == PROTOCOL.SCADA_MGMT then
         if packet.type == MGMT_TYPE.ESTABLISH then
             if packet.length == 2 then
@@ -92,37 +92,37 @@ local function handle_packet(packet)
                         end
 
                         if not count_ok then
-                            error_msg = "Error: supervisor unit count out of range."
+                            error_msg = "Error: contador de unidade do supervisor fora de alcance."
                         elseif not cool_ok then
-                            error_msg = "Error: supervisor cooling configuration malformed."
+                            error_msg = "Error: configura\xe7\xe3o de refrigera\xe7\xe3o do surpervisor malformado."
                             self.tool_ctl.sv_cool_conf = nil
                         end
 
                         self.sv_addr = packet.scada_frame.src_addr()
                         send_sv(MGMT_TYPE.CLOSE, {})
                     else
-                        error_msg = "Error: invalid cooling configuration supervisor."
+                        error_msg = "Error: configura\xe7\xe3o de refrigera\xe7\xe3o do supervisor inv\xe1lido."
                     end
                 else
-                    error_msg = "Error: invalid allow reply length from supervisor."
+                    error_msg = "Error: comprimento de resposta do supervisor inv\xe1lido."
                 end
             elseif packet.length == 1 then
                 local est_ack = packet.data[1]
 
                 if est_ack == ESTABLISH_ACK.DENY then
-                    error_msg = "Error: supervisor connection denied."
+                    error_msg = "Error: /conex\xe3o com supervisor negado."
                 elseif est_ack == ESTABLISH_ACK.COLLISION then
-                    error_msg = "Error: a coordinator is already/still connected. Please try again."
+                    error_msg = "Error: um coodernador ainda est\xe1 conectado. Por favor tente novamente."
                 elseif est_ack == ESTABLISH_ACK.BAD_VERSION then
-                    error_msg = "Error: coordinator comms version does not match supervisor comms version."
+                    error_msg = "Error: a vers\xe3o do comunicador do coodernador n\xe3o combina com a do supervisor."
                 else
-                    error_msg = "Error: invalid reply from supervisor."
+                    error_msg = "Error: resposta do supervisor inv\xe1lida."
                 end
             else
-                error_msg = "Error: invalid reply length from supervisor."
+                error_msg = "Error: comprimento de resposta do supervisor inv\xe1lido."
             end
         else
-            error_msg = "Error: didn't get an establish reply from supervisor."
+            error_msg = "Error: uma resposta de estabelecimento nxeoo foi recebida do supervisor."
         end
     end
 
@@ -133,8 +133,8 @@ local function handle_packet(packet)
         self.sv_conn_detail.set_value(error_msg)
         self.sv_conn_button.enable()
     else
-        self.sv_conn_status.set_value("Connected!")
-        self.sv_conn_detail.set_value("Data received successfully, press 'Next' to continue.")
+        self.sv_conn_status.set_value("Conectado!")
+        self.sv_conn_detail.set_value("Info recebida com sucesso, pressione 'Prox' para continuar.")
         self.sv_skip.hide()
         self.sv_next.show()
     end
@@ -144,8 +144,8 @@ end
 local function handle_timeout()
     self.net_listen = false
     self.sv_conn_button.enable()
-    self.sv_conn_status.set_value("Timed out.")
-    self.sv_conn_detail.set_value("Supervisor did not reply. Ensure startup app is running on the supervisor.")
+    self.sv_conn_status.set_value("Tempo limite esgotado.")
+    self.sv_conn_detail.set_value("Supervisor n\xe3o respondeu. Tenha certeza que o app de iniciliza\xe7\xe3o est\xe1 rodando no supervisor.")
 end
 
 -- attempt a connection to the supervisor to get cooling info
@@ -155,9 +155,9 @@ local function sv_connect()
 
     local modem = ppm.get_wireless_modem()
     if modem == nil then
-        self.sv_conn_status.set_value("Please connect an ender/wireless modem.")
+        self.sv_conn_status.set_value("Por favor conecte um modem ender/sem fio.")
     else
-        self.sv_conn_status.set_value("Modem found, connecting...")
+        self.sv_conn_status.set_value("Modem localizado, Conectando...")
         if self.nic == nil then self.nic = network.nic(modem) end
 
         self.nic.closeAll()
@@ -201,15 +201,15 @@ function facility.create(tool_ctl, main_pane, cfg_sys, fac_cfg, style)
 
     local fac_pane = MultiPane{parent=fac_cfg,x=1,y=4,panes={fac_c_1,fac_c_2,fac_c_3}}
 
-    TextBox{parent=fac_cfg,x=1,y=2,text=" Facility Configuration",fg_bg=cpair(colors.black,colors.yellow)}
+    TextBox{parent=fac_cfg,x=1,y=2,text=" Configura\xe7\xe3o da Instala\xe7\xe3o",fg_bg=cpair(colors.black,colors.yellow)}
 
-    TextBox{parent=fac_c_1,x=1,y=1,height=4,text="This tool can attempt to connect to your supervisor computer. This would load facility information in order to get the unit count and aid monitor setup."}
-    TextBox{parent=fac_c_1,x=1,y=6,height=2,text="The supervisor startup app must be running and fully configured on your supervisor computer."}
+    TextBox{parent=fac_c_1,x=1,y=1,height=4,text="Esta ferramenta pode tentar se conectar ao seu supervisor. Isso carregar\xe1 as informa\xe7\xf5es da instala\xe7\xe3o para obter a contagem de unidades e ajudar na configura\xe7\xe3o de monitores."}
+    TextBox{parent=fac_c_1,x=1,y=6,height=2,text="O app de inicializa\xe7\xe3o do supervisor deve estar em execu\xe7\xe3o e totalmente configurado."}
 
     self.sv_conn_status = TextBox{parent=fac_c_1,x=11,y=9,text=""}
     self.sv_conn_detail = TextBox{parent=fac_c_1,x=1,y=11,height=2,text=""}
 
-    self.sv_conn_button = PushButton{parent=fac_c_1,x=1,y=9,text="Connect",min_width=9,callback=function()sv_connect()end,fg_bg=cpair(colors.black,colors.green),active_fg_bg=btn_act_fg_bg,dis_fg_bg=btn_dis_fg_bg}
+    self.sv_conn_button = PushButton{parent=fac_c_1,x=1,y=9,text="Conectar",min_width=9,callback=function()sv_connect()end,fg_bg=cpair(colors.black,colors.green),active_fg_bg=btn_act_fg_bg,dis_fg_bg=btn_dis_fg_bg}
 
     local function sv_skip()
         tcd.abort(handle_timeout)
@@ -224,17 +224,17 @@ function facility.create(tool_ctl, main_pane, cfg_sys, fac_cfg, style)
         fac_pane.set_value(3)
     end
 
-    PushButton{parent=fac_c_1,x=1,y=14,text="\x1b Back",callback=function()main_pane.set_value(2)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
-    self.sv_skip = PushButton{parent=fac_c_1,x=44,y=14,text="Skip \x1a",callback=sv_skip,fg_bg=cpair(colors.black,colors.red),active_fg_bg=btn_act_fg_bg,dis_fg_bg=btn_dis_fg_bg}
-    self.sv_next = PushButton{parent=fac_c_1,x=44,y=14,text="Next \x1a",callback=sv_next,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg,hidden=true}
+    PushButton{parent=fac_c_1,x=1,y=14,text="\x1bVoltar",callback=function()main_pane.set_value(2)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    self.sv_skip = PushButton{parent=fac_c_1,x=44,y=14,text="Pular\x1a",callback=sv_skip,fg_bg=cpair(colors.black,colors.red),active_fg_bg=btn_act_fg_bg,dis_fg_bg=btn_dis_fg_bg}
+    self.sv_next = PushButton{parent=fac_c_1,x=44,y=14,text="Prox \x1a",callback=sv_next,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg,hidden=true}
 
-    TextBox{parent=fac_c_2,x=1,y=1,height=3,text="Please enter the number of reactors you have, also referred to as reactor units or 'units' for short. A maximum of 4 is currently supported."}
+    TextBox{parent=fac_c_2,x=1,y=1,height=3,text="Por favor, insira o n\xb0 de reatores que você possui, tamb\xe9m chamados de unidades de reator ou 'unidades'. O m\xe1ximo suportado \xe9 4."}
     tool_ctl.num_units = NumberField{parent=fac_c_2,x=1,y=5,width=5,max_chars=2,default=ini_cfg.UnitCount,min=1,max=4,fg_bg=bw_fg_bg}
     TextBox{parent=fac_c_2,x=7,y=5,text="reactors"}
-    TextBox{parent=fac_c_2,x=1,y=7,height=3,text="This will decide how many monitors you need. If this does not match the supervisor's number of reactor units, the coordinator will not connect.",fg_bg=cpair(colors.yellow,colors._INHERIT)}
-    TextBox{parent=fac_c_2,x=1,y=10,height=3,text="Since you skipped supervisor sync, the main monitor minimum height can't be determined precisely. It is marked with * on the next page.",fg_bg=g_lg_fg_bg}
+    TextBox{parent=fac_c_2,x=1,y=7,height=3,text="Isso determina quantos monitores voc\xea precisa. Se esse n\xb0 n\xe3o corresponder a quantidade de reatores do supervisor, o coordenador n\xe3o ser\xe1 conectado.",fg_bg=cpair(colors.yellow,colors._INHERIT)}
+    TextBox{parent=fac_c_2,x=1,y=10,height=3,text="Sem a sincroniza\xe7\xe3o com o supervisor, a altura m\xednima do monitor principal \xe9 incerta. E ser\xe1 marcada com um * na pr\xf3xima p\xe1gina.",fg_bg=g_lg_fg_bg}
 
-    local nu_error = TextBox{parent=fac_c_2,x=8,y=14,width=35,text="Please set the number of reactors.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
+    local nu_error = TextBox{parent=fac_c_2,x=8,y=14,width=35,text="Por favor, insira o n\xdamero de reatores.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
 
     local function submit_num_units()
         local count = tonumber(tool_ctl.num_units.get_value())
@@ -246,15 +246,15 @@ function facility.create(tool_ctl, main_pane, cfg_sys, fac_cfg, style)
         else nu_error.show() end
     end
 
-    PushButton{parent=fac_c_2,x=1,y=14,text="\x1b Back",callback=function()fac_pane.set_value(1)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
-    PushButton{parent=fac_c_2,x=44,y=14,text="Next \x1a",callback=submit_num_units,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=fac_c_2,x=1,y=14,text="\x1bVoltar",callback=function()fac_pane.set_value(1)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=fac_c_2,x=44,y=14,text="Prox \x1a",callback=submit_num_units,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
 
-    TextBox{parent=fac_c_3,x=1,y=1,height=2,text="The following facility configuration was fetched from your supervisor computer."}
+    TextBox{parent=fac_c_3,x=1,y=1,height=2,text="A configura\xe7\xe3o da instala\xe7\xe3o a seguir foi obtida do supervisor."
 
     local fac_config_list = ListBox{parent=fac_c_3,x=1,y=4,height=9,width=49,scroll_height=100,fg_bg=bw_fg_bg,nav_fg_bg=g_lg_fg_bg,nav_active=cpair(colors.black,colors.gray)}
 
-    PushButton{parent=fac_c_3,x=1,y=14,text="\x1b Back",callback=function()fac_pane.set_value(1)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
-    PushButton{parent=fac_c_3,x=44,y=14,text="Next \x1a",callback=function()main_pane.set_value(4)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=fac_c_3,x=1,y=14,text="\x1bVoltar",callback=function()fac_pane.set_value(1)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=fac_c_3,x=44,y=14,text="Prox \x1a",callback=function()main_pane.set_value(4)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
 
     --#endregion
 
@@ -280,12 +280,12 @@ function facility.create(tool_ctl, main_pane, cfg_sys, fac_cfg, style)
         local conf = tool_ctl.sv_cool_conf
         fac_config_list.remove_all()
 
-        local str = util.sprintf("Facility has %d reactor unit%s:", #conf, tri(#conf==1,"","s"))
+        local str = util.sprintf("Instala\xe7\xe3o tem %d unidade%s de reatore%s:", #conf, tri(#conf==1,"","s"))
         TextBox{parent=fac_config_list,text=str,fg_bg=cpair(colors.gray,colors.white)}
 
         for i = 1, #conf do
             local num_b, num_t = conf[i][1], conf[i][2]
-            str = util.sprintf("\x07 Unit %d has %d boiler%s and %d turbine%s", i, num_b, tri(num_b == 1, "", "s"), num_t, tri(num_t == 1, "", "s"))
+            str = util.sprintf("\x07 Unidade %d tem %d caldeira%s e %d turbina%s", i, num_b, tri(num_b == 1, "", "s"), num_t, tri(num_t == 1, "", "s"))
             TextBox{parent=fac_config_list,text=str,fg_bg=cpair(colors.gray,colors.white)}
         end
     end
