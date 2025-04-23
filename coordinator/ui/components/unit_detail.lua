@@ -129,15 +129,15 @@ local function init(parent, id)
     local core_temp = DataIndicator{parent=main,x=32,label="",format=fmt,value=0,commas=true,unit=db.temp_label,lu_colors=lu_cpair,width=13,fg_bg=s_field}
     core_temp.register(u_ps, "temp", function (t) core_temp.update(db.temp_convert(t)) end)
 
-    TextBox{parent=main,x=32,y=25,text="Taxa de Queima Atual",width=9,fg_bg=style.label}
+    TextBox{parent=main,x=32,y=25,text="Taxa de Queima Atual",width=13,fg_bg=style.label}
     local act_burn_r = DataIndicator{parent=main,x=32,label="",format="%8.2f",value=0,unit="mB/t",lu_colors=lu_cpair,width=13,fg_bg=s_field}
     act_burn_r.register(u_ps, "act_burn_rate", act_burn_r.update)
 
-    TextBox{parent=main,x=32,y=28,text="Danifica\xe7\xe3o",width=6,fg_bg=style.label}
+    TextBox{parent=main,x=32,y=28,text="Danifica\xe7\xe3o",width=13,fg_bg=style.label}
     local damage_p = DataIndicator{parent=main,x=32,label="",format="%11.0f",value=0,unit="%",lu_colors=lu_cpair,width=13,fg_bg=s_field}
     damage_p.register(u_ps, "damage", damage_p.update)
 
-    TextBox{parent=main,x=32,y=31,text="Radia\xe7\xe3o",width=21,fg_bg=style.label}
+    TextBox{parent=main,x=32,y=30,text="Radia\xe7\xe3o",width=21,fg_bg=style.label}
     local radiation = RadIndicator{parent=main,x=32,label="",format="%9.3f",lu_colors=lu_cpair,width=13,fg_bg=s_field}
     radiation.register(u_ps, "radiation", radiation.update)
 
