@@ -1,5 +1,5 @@
 # ⚠ Disclaimer!
-Está versão do cc-mek-scada é uma versão não-oficial mantida pela comunidade! 
+Está versão do cc-mek-scada é uma versão (apenas traduzida) não-oficial mantida atualmente apenas por mim! 
 
 # cc-mek-scada
 Sistema SCADA para ComputerCraft configurável para controle de múltiplos reatores de fissão do Mekanism com uma interface gráfica de usuário (GUI), recursos de segurança automáticos, controle de processamento de resíduos e muito mais!
@@ -45,10 +45,10 @@ v10.1+ é preciso pois adiciona suporte completo do CC:Tweaked na versão v10.1 
 
 ## Instalação (Apenas off-line é suportado!)
 
-You can install this on a ComputerCraft computer using either:
-* `wget https://raw.githubusercontent.com/MikaylaFischler/cc-mek-scada/main/ccmsi.lua` (não suportado)
-* `pastebin get sqUN6VUb ccmsi.lua` (não suportado)
-* Off-line (when HTTP is disabled) installation via [release bundles](https://github.com/MikaylaFischler/cc-mek-scada/wiki/Alternative-Installation-Strategies#release-bundles)
+Você pode instalar isto em um computador do ComputerCraft usando qualquer um:
+* `wget https://raw.githubusercontent.com/MikaylaFischler/cc-mek-scada/main/ccmsi.lua` (não suportado ainda)
+* `pastebin get sqUN6VUb ccmsi.lua` (não suportado ainda)
+* Off-line (quando HTTP está desativado) instalação via [release bundles](https://github.com/MikaylaFischler/cc-mek-scada/wiki/Alternative-Installation-Strategies#release-bundles)
 
 ## Contributição
 
