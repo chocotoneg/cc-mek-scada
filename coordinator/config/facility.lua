@@ -94,7 +94,7 @@ local function handle_packet(packet)
                         if not count_ok then
                             error_msg = "Error: contador de unidade do supervisor fora de alcance."
                         elseif not cool_ok then
-                            error_msg = "Error: configura\xe7\xe3o de refrigera\xe7\xe3o do surpervisor malformado."
+                            error_msg = "Error: configura\xe7\xe3o de refrigera\xe7\xe3o do supervisor malformado."
                             self.tool_ctl.sv_cool_conf = nil
                         end
 
@@ -249,7 +249,7 @@ function facility.create(tool_ctl, main_pane, cfg_sys, fac_cfg, style)
     PushButton{parent=fac_c_2,x=1,y=14,text="\x1bVoltar",callback=function()fac_pane.set_value(1)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
     PushButton{parent=fac_c_2,x=44,y=14,text="Prox \x1a",callback=submit_num_units,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
 
-    TextBox{parent=fac_c_3,x=1,y=1,height=2,text="A configura\xe7\xe3o da instala\xe7\xe3o a seguir foi obtida do supervisor."
+    TextBox{parent=fac_c_3,x=1,y=1,height=2,text="A configura\xe7\xe3o da instala\xe7\xe3o a seguir foi obtida do supervisor."}
 
     local fac_config_list = ListBox{parent=fac_c_3,x=1,y=4,height=9,width=49,scroll_height=100,fg_bg=bw_fg_bg,nav_fg_bg=g_lg_fg_bg,nav_active=cpair(colors.black,colors.gray)}
 
