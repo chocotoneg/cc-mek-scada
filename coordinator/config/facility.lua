@@ -280,7 +280,7 @@ function facility.create(tool_ctl, main_pane, cfg_sys, fac_cfg, style)
         local conf = tool_ctl.sv_cool_conf
         fac_config_list.remove_all()
 
-        local str = util.sprintf("Instala\xe7\xe3o tem %d unidade%s de reatore%s:", #conf, tri(#conf==1,"","s"))
+        local str = util.sprintf("Instala\xe7\xe3o tem %d unidade%s de reator%es:", #conf, tri(#conf==1,"","s"))
         TextBox{parent=fac_config_list,text=str,fg_bg=cpair(colors.gray,colors.white)}
 
         for i = 1, #conf do
