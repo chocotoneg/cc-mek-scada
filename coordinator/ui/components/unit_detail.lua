@@ -213,7 +213,7 @@ local function init(parent, id)
 
     local rps_trp = IndicatorLight{parent=rps_annunc,label="Desarme no SPR",colors=ind_red,flash=true,period=period.BLINK_250_MS}
     local rps_dmg = IndicatorLight{parent=rps_annunc,label="N\xedvel de Danifica\xe7\xe3o Alta",colors=ind_red,flash=true,period=period.BLINK_250_MS}
-    local rps_exh = IndicatorLight{parent=rps_annunc,label="Refrigera\xe7\xe3o Muito Aquecida",colors=ind_yel}
+    local rps_exh = IndicatorLight{parent=rps_annunc,label="Refrigera\xe7\xe3o Muito Quente",colors=ind_yel}
     local rps_exw = IndicatorLight{parent=rps_annunc,label="Res\xedduo Excessivo",colors=ind_yel}
     local rps_tmp = IndicatorLight{parent=rps_annunc,label="Temperatura do N\xfacleo Alta",colors=ind_red,flash=true,period=period.BLINK_250_MS}
     local rps_nof = IndicatorLight{parent=rps_annunc,label="Sem Combust\xedvel",colors=ind_yel}

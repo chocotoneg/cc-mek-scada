@@ -189,16 +189,16 @@ function facility.create(tool_ctl, main_pane, cfg_sys, fac_cfg, style)
 
     local fac_pane = MultiPane{parent=fac_cfg,x=1,y=4,panes={fac_c_1,fac_c_2,fac_c_3,fac_c_4,fac_c_5,fac_c_6,fac_c_7,fac_c_8,fac_c_9}}
 
-    TextBox{parent=fac_cfg,x=1,y=2,text=" Facility Configuration",fg_bg=cpair(colors.black,colors.yellow)}
+    TextBox{parent=fac_cfg,x=1,y=2,text=" Configura\xe7\xe3o da Instala\xe7\xe3o",fg_bg=cpair(colors.black,colors.yellow)}
 
     --#region Unit Count
 
-    TextBox{parent=fac_c_1,x=1,y=1,height=3,text="Please enter the number of reactors you have, also referred to as reactor units or 'units' for short. A maximum of 4 is currently supported."}
+    TextBox{parent=fac_c_1,x=1,y=1,height=3,text="Por favor aplique a quantidade de reatores que deseja, tamb\xe9m conhecido como unidade de reatores ou 'unid' abreviadamente. O m\xe1x de 4 \xe9 suportado."}
     tool_ctl.num_units = NumberField{parent=fac_c_1,x=1,y=5,width=5,max_chars=2,default=ini_cfg.UnitCount,min=1,max=4,fg_bg=bw_fg_bg}
-    TextBox{parent=fac_c_1,x=7,y=5,text="reactors"}
-    TextBox{parent=fac_c_1,x=1,y=7,height=3,text="If you already configured your coordinator, make sure you update the coordinator's configured unit count.",fg_bg=cpair(colors.yellow,colors._INHERIT)}
+    TextBox{parent=fac_c_1,x=7,y=5,text="reatores"}
+    TextBox{parent=fac_c_1,x=1,y=7,height=3,text="Se voc\xea j\xe1 configurou seu coordenador, tenha certeza de atualizar a quantidade de unidade dele.",fg_bg=cpair(colors.yellow,colors._INHERIT)}
 
-    local nu_error = TextBox{parent=fac_c_1,x=8,y=14,width=35,text="Please set the number of reactors.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
+    local nu_error = TextBox{parent=fac_c_1,x=8,y=14,width=35,text="Por favor coloque o n. de reatores.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
 
     local function submit_num_units()
         local count = tonumber(tool_ctl.num_units.get_value())
@@ -223,14 +223,14 @@ function facility.create(tool_ctl, main_pane, cfg_sys, fac_cfg, style)
         else nu_error.show() end
     end
 
-    PushButton{parent=fac_c_1,x=1,y=14,text="\x1b Back",callback=function()main_pane.set_value(1)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
-    PushButton{parent=fac_c_1,x=44,y=14,text="Next \x1a",callback=submit_num_units,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=fac_c_1,x=1,y=14,text="\x1bVoltar",callback=function()main_pane.set_value(1)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=fac_c_1,x=44,y=14,text="Prox \x1a",callback=submit_num_units,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
 
     --#endregion
     --#region Cooling Configuration
 
     TextBox{parent=fac_c_2,x=1,y=1,height=4,text="Please provide the reactor cooling configuration below. This includes the number of turbines, boilers, and if that reactor has a connection to a dynamic tank for emergency coolant."}
-    TextBox{parent=fac_c_2,x=1,y=6,text="UNIT    TURBINES   BOILERS   HAS TANK CONNECTION?",fg_bg=g_lg_fg_bg}
+    TextBox{parent=fac_c_2,x=1,y=6,text="UNID    TURBINAS   CALDEIRAS   TEM CONEX\xc3O COM TANQUE?",fg_bg=g_lg_fg_bg}
 
     for i = 1, 4 do
         local num_t, num_b, has_t = 1, 0, false
@@ -244,15 +244,15 @@ function facility.create(tool_ctl, main_pane, cfg_sys, fac_cfg, style)
 
         local line = Div{parent=fac_c_2,x=1,y=7+i,height=1}
 
-        TextBox{parent=line,text="Unit "..i,width=6}
+        TextBox{parent=line,text="Unid "..i,width=6}
         local turbines = NumberField{parent=line,x=9,y=1,width=5,max_chars=2,default=num_t,min=1,max=3,fg_bg=bw_fg_bg}
         local boilers = NumberField{parent=line,x=20,y=1,width=5,max_chars=2,default=num_b,min=0,max=2,fg_bg=bw_fg_bg}
-        local tank = Checkbox{parent=line,x=30,y=1,label="Is Connected",default=has_t,box_fg_bg=cpair(colors.yellow,colors.black)}
+        local tank = Checkbox{parent=line,x=30,y=1,label="Conectado",default=has_t,box_fg_bg=cpair(colors.yellow,colors.black)}
 
         tool_ctl.cooling_elems[i] = { line = line, turbines = turbines, boilers = boilers, tank = tank }
     end
 
-    local cool_err = TextBox{parent=fac_c_2,x=8,y=14,width=33,text="Please fill out all fields.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
+    local cool_err = TextBox{parent=fac_c_2,x=8,y=14,width=33,text="Por favor preencha todos os campos.",fg_bg=cpair(colors.red,colors.lightGray),hidden=true}
 
     local function submit_cooling()
         local any_missing = false
@@ -306,8 +306,8 @@ function facility.create(tool_ctl, main_pane, cfg_sys, fac_cfg, style)
         end
     end
 
-    PushButton{parent=fac_c_2,x=1,y=14,text="\x1b Back",callback=function()fac_pane.set_value(1)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
-    PushButton{parent=fac_c_2,x=44,y=14,text="Next \x1a",callback=submit_cooling,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=fac_c_2,x=1,y=14,text="\x1bVoltar",callback=function()fac_pane.set_value(1)end,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
+    PushButton{parent=fac_c_2,x=44,y=14,text="Prox \x1a",callback=submit_cooling,fg_bg=nav_fg_bg,active_fg_bg=btn_act_fg_bg}
 
     --#endregion
     --#region Facility Tanks Option

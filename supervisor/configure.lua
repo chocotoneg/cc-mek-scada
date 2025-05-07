@@ -120,7 +120,7 @@ local fields = {
     { "FacilityTankConns", "Conex\xe3o de Tanquess", {} }, -- hidden
     { "TankFluidTypes", "Tipos de Fluido do Tanque", {} },
     { "AuxiliaryCoolant", "Refrig. de \xc1gua Aux.", {} },
-    { "ExtChargeIdling", "Extended Charge Idling", false },
+    { "ExtChargeIdling", "Ocioso para Carregamento Extendido", false },
     { "SVR_Channel", "Canal do SVR", 16240 },
     { "PLC_Channel", "Canal do PLC", 16241 },
     { "RTU_Channel", "Canal do RTU", 16242 },
