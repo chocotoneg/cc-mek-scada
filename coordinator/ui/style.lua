@@ -2,15 +2,19 @@
 -- Graphics Style Options
 --
 
-local util   = require("scada-common.util")
+local util        = require("scada-common.util")
 
-local core   = require("graphics.core")
-local themes = require("graphics.themes")
+local core        = require("graphics.core")
+local themes      = require("graphics.themes")
+
+local coordinator = require("coordinator.coordinator")
 
 ---@class crd_style
 local style = {}
 
 local cpair = core.cpair
+
+local config = coordinator.config
 
 -- front panel styling
 
@@ -151,12 +155,12 @@ style.reactor = {
     ---@see REACTOR_STATE
     states = {
         { color = cpair(colors.black, colors.yellow), text = "PLC OFF-LINE" },
-        { color = cpair(colors.black, colors.orange), text = "N\xc3O FORMADO" },
-        { color = cpair(colors.black, colors.orange), text = "PLC  FALHO" },
-        { color = cpair(colors.white, colors.gray),   text = "INATIVO" },
-        { color = cpair(colors.black, colors.green),  text = "ATIVO" },
-        { color = cpair(colors.black, colors.red),    text = "DESLIGADO" },
-        { color = cpair(colors.black, colors.red),    text = "DESATIVADO" }
+        { color = cpair(colors.black, colors.orange), text = "NOT FORMED" },
+        { color = cpair(colors.black, colors.orange), text = "PLC  FAULT" },
+        { color = cpair(colors.white, colors.gray),   text = "DISABLED" },
+        { color = cpair(colors.black, colors.green),  text = "ACTIVE" },
+        { color = cpair(colors.black, colors.red),    text = "SCRAMMED" },
+        { color = cpair(colors.black, colors.red),    text = "FORCE DISABLED" }
     }
 }
 
@@ -165,10 +169,10 @@ style.boiler = {
     ---@see BOILER_STATE
     states = {
         { color = cpair(colors.black, colors.yellow), text = "OFF-LINE" },
-        { color = cpair(colors.black, colors.orange), text = "N\xc3O FORMADO" },
-        { color = cpair(colors.black, colors.orange), text = "RTU  FALHO" },
-        { color = cpair(colors.white, colors.gray),   text = "OCIOSO" },
-        { color = cpair(colors.black, colors.green),  text = "ATIVO" }
+        { color = cpair(colors.black, colors.orange), text = "NOT FORMED" },
+        { color = cpair(colors.black, colors.orange), text = "RTU  FAULT" },
+        { color = cpair(colors.white, colors.gray),   text = "IDLE" },
+        { color = cpair(colors.black, colors.green),  text = "ACTIVE" }
     }
 }
 
@@ -177,11 +181,11 @@ style.turbine = {
     ---@see TURBINE_STATE
     states = {
         { color = cpair(colors.black, colors.yellow), text = "OFF-LINE" },
-        { color = cpair(colors.black, colors.orange), text = "N\xc3O FORMADO" },
-        { color = cpair(colors.black, colors.orange), text = "RTU  FALHO" },
-        { color = cpair(colors.white, colors.gray),   text = "OCIOSO" },
-        { color = cpair(colors.black, colors.green),  text = "ATIVO" },
-        { color = cpair(colors.black, colors.red),    text = "DESARME" }
+        { color = cpair(colors.black, colors.orange), text = "NOT FORMED" },
+        { color = cpair(colors.black, colors.orange), text = "RTU  FAULT" },
+        { color = cpair(colors.white, colors.gray),   text = "IDLE" },
+        { color = cpair(colors.black, colors.green),  text = "ACTIVE" },
+        { color = cpair(colors.black, colors.red),    text = "TRIP" }
     }
 }
 
@@ -190,11 +194,11 @@ style.dtank = {
     ---@see TANK_STATE
     states = {
         { color = cpair(colors.black, colors.yellow), text = "OFF-LINE" },
-        { color = cpair(colors.black, colors.orange), text = "N\xc3O FORMADO" },
+        { color = cpair(colors.black, colors.orange), text = "NOT FORMED" },
         { color = cpair(colors.black, colors.orange), text = "RTU  FAULT" },
         { color = cpair(colors.black, colors.green),  text = "ONLINE" },
-        { color = cpair(colors.black, colors.yellow), text = "PREEN. BAIXO" },
-        { color = cpair(colors.black, colors.green),  text = "PREENCHIDO" }
+        { color = cpair(colors.black, colors.yellow), text = "LOW FILL" },
+        { color = cpair(colors.black, colors.green),  text = "FILLED" }
     }
 }
 
@@ -203,11 +207,11 @@ style.imatrix = {
     ---@see IMATRIX_STATE
     states = {
         { color = cpair(colors.black, colors.yellow), text = "OFF-LINE" },
-        { color = cpair(colors.black, colors.orange), text = "N\xc3O FORMADO" },
-        { color = cpair(colors.black, colors.orange), text = "RTU  FALHO" },
+        { color = cpair(colors.black, colors.orange), text = "NOT FORMED" },
+        { color = cpair(colors.black, colors.orange), text = "RTU  FAULT" },
         { color = cpair(colors.black, colors.green),  text = "ONLINE" },
-        { color = cpair(colors.black, colors.yellow), text = "CARGA BAIXA" },
-        { color = cpair(colors.black, colors.yellow), text = "CARGA  ALTA" }
+        { color = cpair(colors.black, colors.yellow), text = "LOW CHARGE" },
+        { color = cpair(colors.black, colors.yellow), text = "HIGH  CHARGE" }
     }
 }
 
@@ -216,34 +220,41 @@ style.sps = {
     ---@see SPS_STATE
     states = {
         { color = cpair(colors.black, colors.yellow), text = "OFF-LINE" },
-        { color = cpair(colors.black, colors.orange), text = "N\xc3O FORMADO" },
-        { color = cpair(colors.black, colors.orange), text = "RTU  FALHO" },
-        { color = cpair(colors.white, colors.gray),   text = "OCIOSO" },
-        { color = cpair(colors.black, colors.green),  text = "ATIVO" }
+        { color = cpair(colors.black, colors.orange), text = "NOT FORMED" },
+        { color = cpair(colors.black, colors.orange), text = "RTU  FAULT" },
+        { color = cpair(colors.white, colors.gray),   text = "IDLE" },
+        { color = cpair(colors.black, colors.green),  text = "ACTIVE" }
     }
 }
 
-style.waste = {
-    -- auto waste processing states
-    states = {
-        { color = cpair(colors.black, colors.green),  text = "PLUT\xd4NIO" },
-        { color = cpair(colors.black, colors.cyan),   text = "POL\xd4NIO" },
-        { color = cpair(colors.black, colors.purple), text = "ANTI MAT\xc9RIA" }
-    },
-    states_abbrv = {
-        { color = cpair(colors.black, colors.green),  text = "Pu" },
-        { color = cpair(colors.black, colors.cyan),   text = "Po" },
-        { color = cpair(colors.black, colors.purple), text = "AM" }
-    },
-    -- process radio button options
-    options = { "Plut\xd4nio", "Pol\xd4nio", "AntiMat\xe9ria" },
-    -- unit waste selection
-    unit_opts = {
-        { text = "Auto", fg_bg = cpair(colors.black, colors.lightGray), active_fg_bg = cpair(colors.white, colors.gray) },
-        { text = "Pu", fg_bg = cpair(colors.black, colors.lightGray), active_fg_bg = cpair(colors.black, colors.green) },
-        { text = "Po", fg_bg = cpair(colors.black, colors.lightGray), active_fg_bg = cpair(colors.black, colors.cyan) },
-        { text = "AM", fg_bg = cpair(colors.black, colors.lightGray), active_fg_bg = cpair(colors.black, colors.purple) }
+-- get waste styling, which depends on the configuration
+---@return { states: { color: color, text: string }, states_abbrv: { color: color, text: string }, options: string[], unit_opts: { text: string, fg_bg: cpair, active_fg_bg:cpair } }
+function style.get_waste()
+    local pu_color = util.trinary(config.GreenPuPellet, colors.green, colors.cyan)
+    local po_color = util.trinary(config.GreenPuPellet, colors.cyan, colors.green)
+
+    return {
+        -- auto waste processing states
+        states = {
+            { color = cpair(colors.black, pu_color),      text = "PLUTONIUM" },
+            { color = cpair(colors.black, po_color),      text = "POLONIUM" },
+            { color = cpair(colors.black, colors.purple), text = "ANTI MATTER" }
+        },
+        states_abbrv = {
+            { color = cpair(colors.black, pu_color),      text = "Pu" },
+            { color = cpair(colors.black, po_color),      text = "Po" },
+            { color = cpair(colors.black, colors.purple), text = "AM" }
+        },
+        -- process radio button options
+        options = { "Plutonium", "Polonium", "Antimatter" },
+        -- unit waste selection
+        unit_opts = {
+            { text = "Auto", fg_bg = cpair(colors.black, colors.lightGray), active_fg_bg = cpair(colors.white, colors.gray) },
+            { text = "Pu", fg_bg = cpair(colors.black, colors.lightGray), active_fg_bg = cpair(colors.black, pu_color) },
+            { text = "Po", fg_bg = cpair(colors.black, colors.lightGray), active_fg_bg = cpair(colors.black, po_color) },
+            { text = "AM", fg_bg = cpair(colors.black, colors.lightGray), active_fg_bg = cpair(colors.black, colors.purple) }
+        }
     }
-}
+end
 
 return style
